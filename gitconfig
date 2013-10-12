@@ -1,0 +1,67 @@
+[user]
+    name = Konstantin Kosmatov
+    email = key@kosmatov.ru
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+    ui = true
+    pager = true
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+[alias]
+    co = checkout
+    me = merge
+    br = branch
+    ci = commit
+    re = rebase
+    st = status
+    unstage = reset HEAD --
+    last = log -1 HEAD
+    up = pull --rebase
+    put = push origin HEAD
+    cod = checkout develop
+    cos = checkout staging
+    com = checkout master
+    med = merge develop
+    lp = log -p
+    lg = git log --pretty=format:\"%h %Cblue%ar %Cgreen%an%Creset: %s %Cred%d\"
+    ll = log -30 --pretty=format:\"%h %Cblue%ar %Cgreen%an%Creset: %s %Cred%d\"
+    gr = log --graph --pretty=format:\"%Cred%h %Cblue%ar%Creset %Cgreen%an%Creset %s %Cred%d\"
+    ffs = flow feature start
+    fff = flow feature finish
+    ffp = flow feature publish
+    fhs = flow hotfix start
+    fhf = flow hotfix finish
+    frs = flow release start
+    frf = flow release finish
+    ffu = flow feature checkout
+    rec = rebase --continue
+    rea = rebase --abort
+    red = rebase develop
+    mea = merge --abort
+
+
+[core]
+	editor = vim -f
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+[difftool]
+	prompt = false
