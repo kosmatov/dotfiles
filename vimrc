@@ -42,12 +42,14 @@ NeoBundle 'sunaku/vim-ruby-minitest'
 NeoBundle 'skwp/vim-rspec'
 NeoBundle 'vim-ruby/vim-ruby'
 
-NeoBundle 'altercation/vim-colors-solarized'
+" NeoBundle 'altercation/vim-colors-solarized'
+" colorscheme solarized
+NeoBundle 'endel/vim-github-colorscheme'
+colorscheme github
 set background=dark
 let g:solarized_termcolors=16
 let g:solarized_termtrans=1
 let g:solarized_bold=0
-colorscheme solarized
 
 filetype plugin indent on
 
@@ -59,12 +61,13 @@ NeoBundleCheck
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
+set list listchars=trail:·
 set smarttab
 set expandtab
 
 set textwidth=79
 set formatoptions=qrn1
-set colorcolumn=85
+set colorcolumn=80
 set incsearch
 
 nnoremap <S-j> <C-j>
@@ -93,3 +96,11 @@ nnoremap ; :
 
 au FocusLost * :wa
 autocmd BufEnter * lcd %:p:h
+
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor
+  let g:crtlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_use_caching = 0
+endif
+
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
