@@ -10,12 +10,11 @@ if [ ! -d ~/.vim/bundle ]; then
 fi
 
 dotfiles=`dirname $0`
-ls $dotfiles | {
-  while read filename; do
-    if [ $filename != "install" ]; then
-      ln $dotfiles/$filename ~/.$filename
-    fi
-  done
-}
+
+ln $dotfiles/gitconfig ~/.gitconfig
+ln $dotfiles/gemrc ~/.gemrc
+
+echo "source ${dotfiles}/zshrc" >> ~/.zshrc
+echo "source ${dotfiles}/vimrc" >> ~/.vimrc
 
 source ~/.zshrc
