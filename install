@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 if [ ! -d ~/.oh-my-zsh ]; then
-  git clone https://github.com/robbyrussell/oh-my-zsh ~/.oh-my-zsh
+  curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
 fi
 
 if [ ! -d ~/.vim/bundle ]; then
@@ -9,7 +9,7 @@ if [ ! -d ~/.vim/bundle ]; then
   git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 fi
 
-dotfiles=`dirname $0`
+dotfiles=`dirname pwd`
 
 ln $dotfiles/gitconfig ~/.gitconfig
 ln $dotfiles/gemrc ~/.gemrc
