@@ -1,7 +1,7 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
-SH_THEME="Soliah"
+ZSH_THEME="Soliah"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
