@@ -25,13 +25,15 @@
     changed = green
     untracked = cyan
 [alias]
+    ch = checkout
+    st = status
     unstage = reset HEAD --
     last = log -1 HEAD
     up = pull --rebase
     put = push origin HEAD
     lp = log -p
     lg = git log --pretty=format:\"%h %Cblue%ar %Cgreen%an%Creset: %s %Cred%d\"
-    ll = log -30 --pretty=format:\"%h %Cblue%ar %Cgreen%an%Creset: %s %Cred%d\"
+    ll = log --pretty=format:\"%h %Cblue%ar %Cgreen%an%Creset: %s %Cred%d\"
     gr = log --graph --pretty=format:\"%Cred%h %Cblue%ar%Creset %Cgreen%an%Creset %s %Cred%d\"
 
 [core]
