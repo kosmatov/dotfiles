@@ -1,0 +1,26 @@
+#!/bin/sh
+
+hash git >/dev/null && /usr/bin/env git clone https://github.com/kosmatov/dotfiles ~/.dotfiles || {
+  echo "git not installed"
+  exit
+}
+
+if [ ! -d ~/.oh-my-zsh ]; then
+  git clone https://github.com/robbyrussell/oh-my-zsh ~/.oh-my-zsh
+  chsh -s `which zsh`
+  /usr/bin/env zsh
+  source ~/.zshrc
+fi
+
+if [ ! -d ~/.vim/bundle ]; then
+  mkdir -p ~/.vim/bundle
+  git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+fi
+
+ls ~/.dotfiles | {
+  while read filename; do
+    if [ $filename != "install" ]; then
+      ln ~/.dotfiles/$filename ~/.$filename
+    fi
+  done
+}
