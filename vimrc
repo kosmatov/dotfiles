@@ -2,7 +2,7 @@ let mapleader=","
 set nocompatible
 
 if has('vim_starting')
-  set rtp+=~/.vim/bundle/neobundle.vim/
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 call neobundle#rc(expand('~/.vim/bundle/'))
@@ -30,6 +30,8 @@ map <Leader>rt :TagbarToggle<CR>
 NeoBundle 'ervandew/supertab'
 NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'ddollar/nerdcommenter'
+" NeoBundle 'kana/vim-textobj-user'
+" NeoBundle 'nelstrom/vim-textobj-rubyblock'
 
 " Syntax hightlighters
 NeoBundle 'pangloss/vim-javascript'
@@ -41,15 +43,18 @@ NeoBundle 'slim-template/vim-slim'
 NeoBundle 'sunaku/vim-ruby-minitest'
 NeoBundle 'skwp/vim-rspec'
 NeoBundle 'vim-ruby/vim-ruby'
+syntax enable
 
 " NeoBundle 'altercation/vim-colors-solarized'
 " colorscheme solarized
-NeoBundle 'endel/vim-github-colorscheme'
-colorscheme github
+" let g:solarized_termcolors=16
+" let g:solarized_termtrans=1
+" let g:solarized_bold=0
+
+" NeoBundle 'tomasr/molokai'
+" colorscheme molokai
+
 set background=dark
-let g:solarized_termcolors=16
-let g:solarized_termtrans=1
-let g:solarized_bold=0
 
 filetype plugin indent on
 
@@ -67,16 +72,16 @@ set expandtab
 
 set textwidth=79
 set formatoptions=qrn1
+set nowrap
 set colorcolumn=80
 set incsearch
 
 nnoremap <S-j> <C-j>
 nnoremap <S-k> <C-k>
-nnoremap <C-l> <C-w>l
+nnoremap <C-m> <C-w>l
 nnoremap <C-h> <C-w>h
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
+nnoremap <C-k> <C-w>j
+nnoremap <C-l> <C-w>k
 
 nnoremap <up> <nop>
 nnoremap <down> <nop>
@@ -87,20 +92,22 @@ inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
 
-inoremap <F1> <ESC>
-nnoremap <F1> <ESC>
-vnoremap <F1> <ESC>
-
-inoremap jj <ESC>
 nnoremap ; :
+" navigation for colemak
+nnoremap l k
+nnoremap m l
+nnoremap k j
+vnoremap l k
+vnoremap m l
+vnoremap k j
 
 au FocusLost * :wa
 autocmd BufEnter * lcd %:p:h
 
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
-  let g:crtlp_user_command = 'ag %s -l --nocolor -g ""'
-  let g:ctrlp_use_caching = 0
-endif
+" if executable('ag')
+"   set grepprg=ag\ --nogroup\ --nocolor
+"   let g:crtlp_user_command = 'ag %s -l --nocolor -g ""'
+"   let g:ctrlp_use_caching = 0
+" endif
 
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+" nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
