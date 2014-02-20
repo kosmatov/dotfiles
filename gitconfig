@@ -25,11 +25,10 @@
     changed = green
     untracked = cyan
 [alias]
-    ch = checkout
+    co = checkout
     st = status
     unstage = reset HEAD --
-    last = log -1 HEAD
-    up = pull --rebase
+    up = pull --rebase origin master
     put = push origin HEAD
     lp = log -p
     lg = git log --pretty=format:\"%h %Cblue%ar %Cgreen%an%Creset: %s %Cred%d\"
@@ -43,4 +42,6 @@
 [merge]
   tool = vimdiff
 [difftool]
+  prompt = false
+[mergetool]
   prompt = false
