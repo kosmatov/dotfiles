@@ -33,7 +33,7 @@ NeoBundle 'ddollar/nerdcommenter'
 " NeoBundle 'kana/vim-textobj-user'
 " NeoBundle 'nelstrom/vim-textobj-rubyblock'
 
-" Syntax hightlighters
+" Syntax hightlighters & lang support
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'tpope/vim-haml'
@@ -43,6 +43,8 @@ NeoBundle 'slim-template/vim-slim'
 NeoBundle 'sunaku/vim-ruby-minitest'
 NeoBundle 'skwp/vim-rspec'
 NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'fatih/vim-go'
+let g:go_disable_autoinstall = 1
 syntax enable
 
 " NeoBundle 'altercation/vim-colors-solarized'
