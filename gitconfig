@@ -28,7 +28,8 @@
     co = checkout
     st = status
     unstage = reset HEAD --
-    up = pull --rebase origin master
+    up = pull --rebase
+    upm = pull --rebase origin master
     put = push origin HEAD
     lp = log -p
     lg = git log --pretty=format:\"%h %Cblue%ar %Cgreen%an%Creset: %s %Cred%d\"
@@ -41,6 +42,7 @@
   tool = vimdiff
 [merge]
   tool = vimdiff
+  conflictstyle = diff3
 [difftool]
   prompt = false
 [mergetool]
