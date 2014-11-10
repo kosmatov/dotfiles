@@ -1,14 +1,14 @@
 let mapleader=","
-set nocompatible
 
 if has('vim_starting')
+  set nocompatible
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimproc', { 'build' : { 'linux' : 'make' } }
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'L9'
@@ -30,8 +30,7 @@ map <Leader>rt :TagbarToggle<CR>
 NeoBundle 'ervandew/supertab'
 NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'ddollar/nerdcommenter'
-" NeoBundle 'kana/vim-textobj-user'
-" NeoBundle 'nelstrom/vim-textobj-rubyblock'
+NeoBundle 'mattn/flappyvird-vim'
 
 " Syntax hightlighters & lang support
 NeoBundle 'pangloss/vim-javascript'
@@ -44,24 +43,16 @@ NeoBundle 'sunaku/vim-ruby-minitest'
 NeoBundle 'skwp/vim-rspec'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'fatih/vim-go'
-let g:go_disable_autoinstall = 1
+" NeoBundle 'wting/rust.vim'
 syntax enable
 
-" NeoBundle 'altercation/vim-colors-solarized'
-" colorscheme solarized
-" let g:solarized_termcolors=16
-" let g:solarized_termtrans=1
-" let g:solarized_bold=0
+call neobundle#end()
 
-" NeoBundle 'tomasr/molokai'
-" colorscheme molokai
-
-set background=dark
+let g:go_disable_autoinstall = 1
 
 filetype plugin indent on
 
-NeoBundleCheck
-
+set background=dark
 :hi ColorColumn ctermbg=0
 :hi TabLine ctermbg=0
 
