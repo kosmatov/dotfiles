@@ -14,7 +14,7 @@ dotfiles=`dirname $0`
 ln $dotfiles/gitconfig ~/.gitconfig
 ln $dotfiles/gemrc ~/.gemrc
 
-echo "source ${dotfiles}/zshrc" >> ~/.zshrc
-echo "source ${dotfiles}/vimrc" >> ~/.vimrc
+echo "source ${dotfiles}/zshrc" > ~/.zshrc
+echo "source ${dotfiles}/vimrc" > ~/.vimrc
 
 source ~/.zshrc
