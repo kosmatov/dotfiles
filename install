@@ -10,7 +10,7 @@ if [ ! -d ~/.vim/bundle ]; then
 fi
 
 cd `dirname $0`
-dotfiles=`dirname $(pwd)`
+dotfiles=$(pwd)
 
 ln $dotfiles/gitconfig ~/.gitconfig
 ln $dotfiles/gemrc ~/.gemrc
