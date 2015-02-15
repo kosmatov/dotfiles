@@ -1,50 +1,53 @@
 let mapleader=","
 
-if has('vim_starting')
+if has("vim_starting")
   set nocompatible
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-call neobundle#begin(expand('~/.vim/bundle/'))
+call neobundle#begin(expand("~/.vim/bundle/"))
 
-NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/vimproc', { 'build' : { 'linux' : 'make' } }
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'L9'
-NeoBundle 'FuzzyFinder'
-NeoBundle 'rails.vim'
-NeoBundle 'kien/ctrlp.vim'
+NeoBundleFetch "Shougo/neobundle.vim"
+NeoBundle "Shougo/vimproc", { "build" : { "linux" : "make" } }
+NeoBundle "tpope/vim-fugitive"
+NeoBundle "Lokaltog/vim-easymotion"
+NeoBundle "L9"
+NeoBundle "FuzzyFinder"
+NeoBundle "rails.vim"
+NeoBundle "kien/ctrlp.vim"
 
-NeoBundle 'scrooloose/nerdtree'
+NeoBundle "scrooloose/nerdtree"
 autocmd vimenter * if !argc() | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
 
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'jeetsukumaran/vim-buffergator'
-NeoBundle 'skalnik/vim-vroom'
+NeoBundle "scrooloose/syntastic"
+NeoBundle "jeetsukumaran/vim-buffergator"
+NeoBundle "skalnik/vim-vroom"
 
-NeoBundle 'majutsushi/tagbar'
+NeoBundle "majutsushi/tagbar"
 map <Leader>rt :TagbarToggle<CR>
 
-NeoBundle 'ervandew/supertab'
-NeoBundle 'tpope/vim-unimpaired'
-NeoBundle 'ddollar/nerdcommenter'
-NeoBundle 'mattn/flappyvird-vim'
+NeoBundle "ervandew/supertab"
+NeoBundle "tpope/vim-unimpaired"
+NeoBundle "ddollar/nerdcommenter"
+" NeoBundle "mattn/flappyvird-vim"
 
 " Syntax hightlighters & lang support
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'tpope/vim-haml'
-NeoBundle 'tpope/vim-markdown'
-NeoBundle 'tpope/vim-rails'
-NeoBundle 'slim-template/vim-slim'
-NeoBundle 'sunaku/vim-ruby-minitest'
-NeoBundle 'skwp/vim-rspec'
-NeoBundle 'vim-ruby/vim-ruby'
-NeoBundle 'fatih/vim-go'
-" NeoBundle 'wting/rust.vim'
+NeoBundle "pangloss/vim-javascript"
+NeoBundle "kchmck/vim-coffee-script"
+NeoBundle "tpope/vim-haml"
+NeoBundle "tpope/vim-markdown"
+NeoBundle "tpope/vim-rails"
+NeoBundle "slim-template/vim-slim"
+NeoBundle "sunaku/vim-ruby-minitest"
+NeoBundle "skwp/vim-rspec"
+NeoBundle "vim-ruby/vim-ruby"
+" NeoBundle "fatih/vim-go"
+" NeoBundle "wting/rust.vim"
+NeoBundle "guns/vim-clojure-static"
+NeoBundle "tpope/vim-fireplace"
 syntax enable
+au BufNewFile,BufRead *.slim setf slim
 
 call neobundle#end()
 
@@ -97,10 +100,11 @@ vnoremap k j
 au FocusLost * :wa
 autocmd BufEnter * lcd %:p:h
 
-" if executable('ag')
+" if executable("ag")
 "   set grepprg=ag\ --nogroup\ --nocolor
-"   let g:crtlp_user_command = 'ag %s -l --nocolor -g ""'
+"   let g:crtlp_user_command = "ag %s -l --nocolor -g """
 "   let g:ctrlp_use_caching = 0
 " endif
 
 " nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+set shortmess+=A
