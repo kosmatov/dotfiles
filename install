@@ -9,7 +9,7 @@ if [ ! -d ~/.vim/bundle ]; then
   git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 fi
 
-dotfiles=`dirname pwd`
+dotfiles=`dirname $0`
 
 ln $dotfiles/gitconfig ~/.gitconfig
 ln $dotfiles/gemrc ~/.gemrc
