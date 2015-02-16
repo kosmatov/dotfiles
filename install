@@ -16,6 +16,7 @@ ln $dotfiles/gitconfig ~/.gitconfig
 ln $dotfiles/gemrc ~/.gemrc
 
 echo "source ${dotfiles}/zshrc" > ~/.zshrc
+echo "source ~/.oh-my-zsh/oh-my-zsh.sh" >> ~/.zshrc
 echo "source ${dotfiles}/vimrc" > ~/.vimrc
 
 source ~/.zshrc
