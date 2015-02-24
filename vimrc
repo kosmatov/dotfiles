@@ -8,7 +8,7 @@ endif
 call neobundle#begin(expand("~/.vim/bundle/"))
 
 NeoBundleFetch "Shougo/neobundle.vim"
-NeoBundle "Shougo/vimproc", { "build" : { "linux" : "make" } }
+" NeoBundle "Shougo/vimproc", { "build" : { "linux" : "make" } }
 NeoBundle "tpope/vim-fugitive"
 NeoBundle "Lokaltog/vim-easymotion"
 NeoBundle "L9"
