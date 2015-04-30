@@ -109,3 +109,4 @@ autocmd BufEnter * lcd %:p:h
 " nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 set shortmess+=A
 set nohlsearch
+set wildignore+=*/tmp/*,*/node_modules/*,*/public/assets*,*/vendor/*,*/coverage/*,*/.bundle/*,*/log/*,*/.git/*
