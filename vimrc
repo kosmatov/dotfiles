@@ -19,6 +19,7 @@ NeoBundle "kien/ctrlp.vim"
 NeoBundle "scrooloose/nerdtree"
 autocmd vimenter * if !argc() | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
+map <Leader>n :NERDTreeFind<CR>
 
 NeoBundle "scrooloose/syntastic"
 NeoBundle "jeetsukumaran/vim-buffergator"
