@@ -70,7 +70,7 @@ set expandtab
 set textwidth=79
 set formatoptions=qrn1
 set nowrap
-set colorcolumn=80
+" set colorcolumn=80
 set incsearch
 
 nnoremap <S-j> <C-j>
