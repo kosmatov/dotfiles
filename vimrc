@@ -11,7 +11,7 @@ NeoBundleFetch "Shougo/neobundle.vim"
 " NeoBundle "Shougo/vimproc", { "build" : { "linux" : "make" } }
 NeoBundle "tpope/vim-fugitive"
 NeoBundle "Lokaltog/vim-easymotion"
-NeoBundle "L9"
+NeoBundle "L9" " FuzzyFinder dependency
 NeoBundle "FuzzyFinder"
 NeoBundle "rails.vim"
 NeoBundle "kien/ctrlp.vim"
