@@ -14,6 +14,7 @@ dotfiles=$(pwd)
 
 ln $dotfiles/gitconfig ~/.gitconfig
 ln $dotfiles/gemrc ~/.gemrc
+ln $dotfiles/ctags ~/.ctags
 
 echo "source ${dotfiles}/zshrc" > ~/.zshrc
 echo "source ~/.oh-my-zsh/oh-my-zsh.sh" >> ~/.zshrc
