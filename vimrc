@@ -10,7 +10,13 @@ call neobundle#begin(expand("~/.vim/bundle/"))
 NeoBundleFetch "Shougo/neobundle.vim"
 " NeoBundle "Shougo/vimproc", { "build" : { "linux" : "make" } }
 NeoBundle "tpope/vim-fugitive"
+
 NeoBundle "Lokaltog/vim-easymotion"
+nmap s <Plug>(easymotion-overwin-f2)
+let g:EasyMotion_smartcase=1
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+
 NeoBundle "L9" " FuzzyFinder dependency
 NeoBundle "FuzzyFinder"
 NeoBundle "rails.vim"
