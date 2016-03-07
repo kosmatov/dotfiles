@@ -44,7 +44,7 @@ NeoBundle "sunaku/vim-ruby-minitest"
 NeoBundle "skwp/vim-rspec"
 NeoBundle "vim-ruby/vim-ruby"
 NeoBundle "ecomba/vim-ruby-refactoring"
-NeoBundle "tpope/vim-rvm"
+" NeoBundle "tpope/vim-rvm"
 NeoBundle "szw/vim-tags"
 " NeoBundle "fatih/vim-go"
 " NeoBundle "wting/rust.vim"
@@ -76,21 +76,19 @@ set nowrap
 " set colorcolumn=80
 set incsearch
 
-nnoremap <S-j> <C-j>
-nnoremap <S-k> <C-k>
-nnoremap <C-m> <C-w>l
+nnoremap <C-l> <C-w>l
 nnoremap <C-h> <C-w>h
-nnoremap <C-k> <C-w>j
-nnoremap <C-l> <C-w>k
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
 
 nnoremap ; :
 " navigation for colemak
-nnoremap l k
-nnoremap m l
-nnoremap k j
-vnoremap l k
-vnoremap m l
-vnoremap k j
+" nnoremap l k
+" nnoremap m l
+" nnoremap k j
+" vnoremap l k
+" vnoremap m l
+" vnoremap k j
 
 au FocusLost * :wa
 autocmd BufEnter * lcd %:p:h
