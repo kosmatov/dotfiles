@@ -2,10 +2,11 @@ let mapleader=","
 scriptencoding utf-8
 set encoding=utf-8
 
-if has("vim_starting")
+if &compatible
   set nocompatible
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
+
+set runtimepath+=~/.vim/bundle/neobundle.vim/
 
 call neobundle#begin(expand("~/.vim/bundle/"))
 
@@ -62,6 +63,8 @@ syntax enable
 au BufNewFile,BufRead *.slim setf slim
 
 call neobundle#end()
+
+NeoBundleCheck
 
 let g:go_disable_autoinstall = 1
 
