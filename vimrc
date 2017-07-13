@@ -1,4 +1,6 @@
 let mapleader=","
+scriptencoding utf-8
+set encoding=utf-8
 
 if has("vim_starting")
   set nocompatible
@@ -88,24 +90,10 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 
 nnoremap ; :
-" navigation for colemak
-" nnoremap l k
-" nnoremap m l
-" nnoremap k j
-" vnoremap l k
-" vnoremap m l
-" vnoremap k j
 
 au FocusLost * :wa
 autocmd BufEnter * lcd %:p:h
 
-" if executable("ag")
-"   set grepprg=ag\ --nogroup\ --nocolor
-"   let g:crtlp_user_command = "ag %s -l --nocolor -g """
-"   let g:ctrlp_use_caching = 0
-" endif
-
-" nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 set shortmess+=A
 set nohlsearch
 set wildignore+=*/tmp/*,*/node_modules/*,*/public/assets*,*/vendor/*,*/coverage/*,*/.bundle/*,*/log/*,*/.git/*
