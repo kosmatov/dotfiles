@@ -9,6 +9,10 @@ if [ ! -d ~/.vim/bundle ]; then
   git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 fi
 
+if [ ! -d ~/.config/nvim ]; then
+  mkdir -p ~/.config/nvim
+fi
+
 cd `dirname $0`
 dotfiles=$(pwd)
 
@@ -19,5 +23,6 @@ ln $dotfiles/ctags ~/.ctags
 echo "source ${dotfiles}/zshrc" > ~/.zshrc
 echo "source ~/.oh-my-zsh/oh-my-zsh.sh" >> ~/.zshrc
 echo "source ${dotfiles}/vimrc" > ~/.vimrc
+echo "source ${dotfiles}/neo.vim" > ~/.config/nvim/init.vim
 
 source ~/.zshrc
