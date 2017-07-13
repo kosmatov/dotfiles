@@ -15,15 +15,16 @@
     remote = green
 
 [color "diff"]
-    meta = yellow bold
-    frag = magenta bold
-    old = red bold
-    new = green bold
+    meta = yellow reverse
+    frag = magenta reverse
+    old = red reverse
+    new = green reverse
 
 [color "status"]
     added = yellow
     changed = green
     untracked = cyan
+
 [alias]
     co = checkout
     st = status
@@ -40,12 +41,17 @@
 [core]
   editor = vim -f
   excludesfile = ~/.gitignore
+  pager = more
+
 [diff]
   tool = vimdiff
+
 [merge]
   tool = vimdiff
   conflictstyle = diff3
+
 [difftool]
   prompt = false
+
 [mergetool]
   prompt = false

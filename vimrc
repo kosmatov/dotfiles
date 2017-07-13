@@ -74,6 +74,11 @@ set background=dark
 :hi ColorColumn ctermbg=0
 :hi TabLine ctermbg=0
 
+highlight DiffAdd cterm=bold ctermfg=10 ctermbg=17
+highlight DiffText cterm=bold ctermfg=10 ctermbg=88
+highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17
+highlight DiffChange cterm=bold ctermfg=10 ctermbg=17
+
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
@@ -91,6 +96,11 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
+
+if &diff
+  nnoremap <up> :<up>
+  nnoremap <down> :<down>
+endif
 
 nnoremap ; :
 
