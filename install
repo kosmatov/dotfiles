@@ -9,20 +9,18 @@ if [ ! -d ~/.vim/bundle ]; then
   git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 fi
 
-if [ ! -d ~/.config/nvim ]; then
-  mkdir -p ~/.config/nvim
-fi
+[ -d ~/.config/nvim ] || mkdir -p ~/.config/nvim
 
 cd `dirname $0`
 dotfiles=$(pwd)
 
-ln $dotfiles/gitconfig ~/.gitconfig
-ln $dotfiles/gemrc ~/.gemrc
-ln $dotfiles/ctags ~/.ctags
-
-echo "source ${dotfiles}/zshrc" > ~/.zshrc
-echo "source ~/.oh-my-zsh/oh-my-zsh.sh" >> ~/.zshrc
-echo "source ${dotfiles}/vimrc" > ~/.vimrc
-echo "source ${dotfiles}/neo.vim" > ~/.config/nvim/init.vim
+cat ~/.zshrc | grep $dotfiles/zshrc || echo "source ${dotfiles}/zshrc" >> ~/.zshrc
+cat ~/.zshrc | grep on-my-zsh || echo "source ~/.oh-my-zsh/oh-my-zsh.sh" >> ~/.zshrc
+cat ~/.vimrc | grep $dotfiles/vimrc || echo "source ${dotfiles}/vimrc" > ~/.vimrc
+cat ~/.neo.vim | grep $dotfiles/neo.vim || echo "source ${dotfiles}/neo.vim" > ~/.config/nvim/init.vim
+cat ~/.gitconfig | grep include || echo "[include]\n\tpath = ${dotfiles}/gitconfig" >> ~/.gitconfig
 
 source ~/.zshrc
+
+[ -f ~/.gemrc ] || cp $dotfiles/gemrc ~/.gemrc
+[ -f ~/.ctags ] || cp $dotfiles/ctags ~/.ctags

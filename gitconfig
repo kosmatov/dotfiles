@@ -1,6 +1,3 @@
-[user]
-    name = Vagrant
-    email = vagrant@example.com
 [color]
     diff = auto
     status = auto
