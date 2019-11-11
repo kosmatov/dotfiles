@@ -31,14 +31,13 @@
     upd = pull --rebase origin develop
     put = push origin HEAD
     lp = log -p
-    lg = git log --pretty=format:\"%h %Cblue%ar %Cgreen%an%Creset: %s %Cred%d\"
     ll = log --pretty=format:\"%h %Cblue%ar %Cgreen%an%Creset: %s %Cred%d\"
     gr = log --graph --pretty=format:\"%Cred%h %Cblue%ar%Creset %Cgreen%an%Creset %s %Cred%d\"
 
 [core]
   editor = vim -f
   excludesfile = ~/.gitignore
-  pager = more
+  pager = less
 
 [diff]
   tool = vimdiff
