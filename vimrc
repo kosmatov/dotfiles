@@ -2,73 +2,68 @@ let mapleader=","
 scriptencoding utf-8
 set encoding=utf-8
 
-if &compatible
-  set nocompatible
-endif
+set nocompatible
 
-set runtimepath+=~/.vim/bundle/neobundle.vim/
+call plug#begin('~/.vim/plugged')
 
-call neobundle#begin(expand("~/.vim/bundle/"))
+Plug 'tpope/vim-fugitive'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'jeetsukumaran/vim-buffergator'
+Plug 'skalnik/vim-vroom'
+Plug 'majutsushi/tagbar'
+Plug 'ervandew/supertab'
+Plug 'tpope/vim-unimpaired'
+Plug 'ddollar/nerdcommenter'
+" Plug 'mattn/flappyvird-vim'
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
-NeoBundleFetch "Shougo/neobundle.vim"
-" NeoBundle "Shougo/vimproc", { "build" : { "linux" : "make" } }
-NeoBundle "tpope/vim-fugitive"
+" Syntax hightlighters & lang support
+Plug 'pangloss/vim-javascript'
+Plug 'kchmck/vim-coffee-script'
+Plug 'tpope/vim-haml'
+Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-rails'
+Plug 'slim-template/vim-slim'
+Plug 'sunaku/vim-ruby-minitest'
+Plug 'skwp/vim-rspec'
+Plug 'vim-ruby/vim-ruby'
+Plug 'ecomba/vim-ruby-refactoring'
+Plug 'szw/vim-tags'
+" Plug 'fatih/vim-go'
+" Plug 'wting/rust.vim'
+Plug 'guns/vim-clojure-static'
+Plug 'tpope/vim-fireplace'
 
-NeoBundle "Lokaltog/vim-easymotion"
+" Styles
+Plug 'vim-airline/vim-airline'
+Plug 'mhartington/oceanic-next'
+Plug 'mhinz/vim-janah'
+Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
+Plug 'iCyMind/NeoSolarized'
+Plug 'joshdick/onedark.vim'
+
+call plug#end()
+
+syntax enable
+set noshowmode
+au BufNewFile,BufRead *.slim setf slim
+
+hi VertSplit cterm=NONE ctermbg=NONE ctermfg=Black guibg=NONE
+
 nmap s <Plug>(easymotion-overwin-f2)
 let g:EasyMotion_smartcase=1
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
-
-NeoBundle "L9" " FuzzyFinder dependency
-NeoBundle "FuzzyFinder"
-NeoBundle "rails.vim"
-NeoBundle "kien/ctrlp.vim"
-
-NeoBundle "scrooloose/nerdtree"
-autocmd vimenter * if !argc() | NERDTree | endif
-map <C-n> :NERDTreeToggle<CR>
-map <Leader>n :NERDTreeFind<CR>
-
-NeoBundle "scrooloose/syntastic"
-NeoBundle "jeetsukumaran/vim-buffergator"
-NeoBundle "skalnik/vim-vroom"
-
-NeoBundle "majutsushi/tagbar"
-map <Leader>rt :TagbarToggle<CR>
-
-NeoBundle "ervandew/supertab"
-NeoBundle "tpope/vim-unimpaired"
-NeoBundle "ddollar/nerdcommenter"
-" NeoBundle "mattn/flappyvird-vim"
-
-" Syntax hightlighters & lang support
-NeoBundle "pangloss/vim-javascript"
-NeoBundle "kchmck/vim-coffee-script"
-NeoBundle "tpope/vim-haml"
-NeoBundle "tpope/vim-markdown"
-NeoBundle "tpope/vim-rails"
-NeoBundle "slim-template/vim-slim"
-NeoBundle "sunaku/vim-ruby-minitest"
-NeoBundle "skwp/vim-rspec"
-NeoBundle "vim-ruby/vim-ruby"
-NeoBundle "ecomba/vim-ruby-refactoring"
-" NeoBundle "tpope/vim-rvm"
-NeoBundle "szw/vim-tags"
-" NeoBundle "fatih/vim-go"
-" NeoBundle "wting/rust.vim"
-NeoBundle "guns/vim-clojure-static"
-NeoBundle "tpope/vim-fireplace"
-syntax enable
-au BufNewFile,BufRead *.slim setf slim
-
-call neobundle#end()
-
-NeoBundleCheck
+filetype plugin indent on
 
 let g:go_disable_autoinstall = 1
 
-filetype plugin indent on
+map <C-n> :NERDTreeToggle \| BuffergatorClose<CR>
+map <Leader>n :NERDTreeFind<CR>
+map <Leader>rt :TagbarToggle<CR>
 
 set background=dark
 :hi ColorColumn ctermbg=0
@@ -105,8 +100,8 @@ endif
 nnoremap ; :
 
 au FocusLost * :wa
-autocmd BufEnter * lcd %:p:h
+" autocmd BufEnter * lcd %:p:h
 
 set shortmess+=A
 set nohlsearch
-set wildignore+=*/tmp/*,*/node_modules/*,*/public/assets*,*/vendor/*,*/coverage/*,*/.bundle/*,*/log/*,*/.git/*
+set wildignore+=*/tmp/*,*/node_modules/*,*/public/assets*,*/vendor/*,*/coverage/*,*/.bundle/*,*/log/*,*/.git/*,*/cassettes/*
