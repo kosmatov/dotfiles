@@ -8,7 +8,6 @@ tnoremap <C-j> <C-\><C-N><C-w>j
 tnoremap <C-k> <C-\><C-N><C-w>k
 tnoremap <C-[> <C-\><C-N>
 
-set termguicolors
 colorscheme onedark
 
 let g:airline_theme = 'onedark'
@@ -25,7 +24,6 @@ function! DefaultWorkspace()
 
   if winwidth(0) >= 240 | call VsTe() | endif
   vnew
-  NERDTree
 endfunction
 
 command! -register Vste call VsTe()
