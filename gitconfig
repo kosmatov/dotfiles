@@ -37,7 +37,7 @@
 [core]
   editor = nvr
   excludesfile = ~/.gitignore
-  pager = less
+  pager = more
 
 [diff]
   tool = nvr
