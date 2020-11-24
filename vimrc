@@ -19,6 +19,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'ddollar/nerdcommenter'
 " Plug 'mattn/flappyvird-vim'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'ahw/vim-pbcopy'
 
 " Syntax hightlighters & lang support
 Plug 'pangloss/vim-javascript'
@@ -27,8 +28,6 @@ Plug 'tpope/vim-haml'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-rails'
 Plug 'slim-template/vim-slim'
-Plug 'sunaku/vim-ruby-minitest'
-Plug 'skwp/vim-rspec'
 Plug 'vim-ruby/vim-ruby'
 Plug 'ecomba/vim-ruby-refactoring'
 Plug 'szw/vim-tags'
@@ -60,6 +59,7 @@ map <Leader>k <Plug>(easymotion-k)
 filetype plugin indent on
 
 let g:go_disable_autoinstall = 1
+let g:vim_pbcopy_remote_cmd = "ssh host-machine pbcopy"
 
 map <C-n> :NERDTreeToggle \| BuffergatorClose<CR>
 map <Leader>n :NERDTreeFind<CR>

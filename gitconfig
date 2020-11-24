@@ -35,21 +35,20 @@
     gr = log --graph --pretty=format:\"%Cred%h %Cblue%ar%Creset %Cgreen%an%Creset %s %Cred%d\"
 
 [core]
-  editor = nvr
+  editor = nvr -o
   excludesfile = ~/.gitignore
-  pager = more
+  pager = less -X
 
 [diff]
   tool = nvr
 
 [merge]
   tool = nvr
-  conflictstyle = diff3
 
-[difftool]
+[difftool "nvr"]
   cmd = nvr -s -d $LOCAL $REMOTE
   prompt = false
 
-[mergetool]
-  cmd = nvr -s -d $LOCAL $BASE $REMOTE $MERGED -c 'wincmd J | wincmd ='
+[mergetool "nvr"]
+  cmd = nvr -s -d $MERGED
   prompt = false
