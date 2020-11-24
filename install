@@ -15,7 +15,6 @@ cat ~/.gitconfig | grep include || echo "[include]\n\tpath = ${dotfiles}/gitconf
 
 source ~/.zshrc
 
-[ -f ~/.gemrc ] || cp $dotfiles/gemrc ~/.gemrc
 [ -f ~/.ctags ] || cp $dotfiles/ctags ~/.ctags
 
 if [ ! -f ~/.vim/autoload/plug.vim ]; then

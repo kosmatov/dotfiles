@@ -6,7 +6,7 @@ MINNUM=1000
 if [ -z "$(cat $1 | grep $PREFIX)" ]; then
   git symbolic-ref | grep -o "[0-9]*" | {
     while read ticket_num; do
-      if [ $ticket_num -gt 1000 ]; then
+      if [ $ticket_num -gt $MINNUM ]; then
         echo "$PREFIX$ticket_num $(cat $1)" > $1
       fi
     done
