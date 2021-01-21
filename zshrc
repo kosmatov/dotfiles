@@ -8,8 +8,3 @@ export USER=kosmatov
 
 set -o vi
 
-alias run_vagrant="(vagrant status | grep running && vagrant ssh) || (vagrant up && ssh-add && vagrant ssh)"
-alias box="cd ~/rbox && run_vagrant"
-alias rbox="cd ~/rbox && run_vagrant"
-alias fbox="cd ~/fbox && run_vagrant"
-alias dbox="cd ~/dbox && run_vagrant"
