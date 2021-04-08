@@ -68,6 +68,7 @@ map <Leader>rt :TagbarToggle<CR>
 set background=dark
 :hi ColorColumn ctermbg=0
 :hi TabLine ctermbg=0
+:hi SpecialKey cterm=bold ctermfg=10
 
 highlight DiffAdd cterm=bold ctermfg=10 ctermbg=17
 highlight DiffText cterm=bold ctermfg=10 ctermbg=88

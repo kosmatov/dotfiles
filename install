@@ -12,6 +12,7 @@ cat ~/.zshrc | grep "on-my-zsh" || echo "source ~/.oh-my-zsh/oh-my-zsh.sh" >> ~/
 cat ~/.zshrc | grep "$dotfiles/zshrc.key" || git remote -v | grep :kosmatov && echo "source ${dotfiles}/zshrc.key" >> ~/.zshrc
 cat ~/.vimrc | grep "$dotfiles/vimrc" || echo "source ${dotfiles}/vimrc" > ~/.vimrc
 cat ~/.gitconfig | grep include || echo "[include]\n\tpath = ${dotfiles}/gitconfig" >> ~/.gitconfig
+[ -f ~/.gitignore ] || cp $dotfiles/gitignore ~/.gitignore
 
 source ~/.zshrc
 
