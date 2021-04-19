@@ -20,6 +20,7 @@ Plug 'ddollar/nerdcommenter'
 " Plug 'mattn/flappyvird-vim'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'ahw/vim-pbcopy'
+Plug 'sk1418/HowMuch'
 
 " Syntax hightlighters & lang support
 Plug 'pangloss/vim-javascript'
@@ -100,7 +101,7 @@ endif
 
 nnoremap ; :
 
-au FocusLost * :wa
+" au FocusLost * :wa
 " autocmd BufEnter * lcd %:p:h
 
 set shortmess+=A
