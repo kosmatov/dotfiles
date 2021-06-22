@@ -108,4 +108,5 @@ map <Leader>p "0p
 set shortmess+=A
 set nohlsearch
 set wildignore+=*/tmp/*,*/node_modules/*,*/public/assets*,*/coverage/*,*/log/*,*/.git/*,*/cassettes/*
+set title
 au BufEnter * let &titlestring = getcwd()
