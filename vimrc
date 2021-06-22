@@ -100,6 +100,7 @@ if &diff
 endif
 
 nnoremap ; :
+map <Leader>p "0p
 
 " au FocusLost * :wa
 " autocmd BufEnter * lcd %:p:h
