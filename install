@@ -5,18 +5,18 @@ if [ ! -d ~/.oh-my-zsh ]; then
 fi
 
 cd `dirname $0`
-dotfiles=$(pwd)
+DOTFILES=$(pwd)
 
-cat ~/.zshrc | grep "$dotfiles/zshrc" || echo "source ${dotfiles}/zshrc" >> ~/.zshrc
-cat ~/.zshrc | grep "on-my-zsh" || echo "source ~/.oh-my-zsh/oh-my-zsh.sh" >> ~/.zshrc
-cat ~/.zshrc | grep "$dotfiles/zshrc.key" || git remote -v | grep :kosmatov && echo "source ${dotfiles}/zshrc.key" >> ~/.zshrc
-cat ~/.vimrc | grep "$dotfiles/vimrc" || echo "source ${dotfiles}/vimrc" > ~/.vimrc
-cat ~/.gitconfig | grep include || echo "[include]\n\tpath = ${dotfiles}/gitconfig" >> ~/.gitconfig
-[ -f ~/.gitignore ] || cp $dotfiles/gitignore ~/.gitignore
+cat ~/.zshrc | grep DOTFILES || echo "export DOTFILES=${DOTFILES}" >> ~/.zshrc
+cat ~/.zshrc | grep "DOTFILES/zshrc" || echo 'source $DOTFILES/zshrc' >> ~/.zshrc
+[ $USER = key ] && cat ~/.zshrc | grep 'DOTFILES/zshrc.key' || echo 'source $DOTFILES/zshrc.key' >> ~/.zshrc
+cat ~/.vimrc | grep $DOTFILES/vimrc || echo "source $DOTFILES/vimrc" > ~/.vimrc
+cat ~/.gitconfig | grep include || echo "[include]\n\tpath = ${DOTFILES}/gitconfig" >> ~/.gitconfig
+[ -f ~/.gitignore ] || cp $DOTFILES/gitignore ~/.gitignore
 
 source ~/.zshrc
 
-[ -f ~/.ctags ] || cp $dotfiles/ctags ~/.ctags
+[ -f ~/.ctags ] || cp $DOTFILES/ctags ~/.ctags
 
 if [ ! -f ~/.vim/autoload/plug.vim ]; then
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -24,4 +24,4 @@ if [ ! -f ~/.vim/autoload/plug.vim ]; then
 fi
 
 [ -d ~/.config/nvim ] || mkdir -p ~/.config/nvim
-cat ~/.config/nvim/init.vim | grep $dotfiles/neo.vim || echo "source ${dotfiles}/neo.vim" > ~/.config/nvim/init.vim
+cat ~/.config/nvim/init.vim | grep $DOTFILES/neo.vim || echo "source ${DOTFILES}/neo.vim" > ~/.config/nvim/init.vim
