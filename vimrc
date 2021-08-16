@@ -33,9 +33,10 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'ecomba/vim-ruby-refactoring'
 Plug 'szw/vim-tags'
 " Plug 'fatih/vim-go'
-" Plug 'wting/rust.vim'
+Plug 'wting/rust.vim'
 Plug 'guns/vim-clojure-static'
 Plug 'tpope/vim-fireplace'
+Plug 'elixir-editors/vim-elixir'
 
 " Styles
 Plug 'vim-airline/vim-airline'

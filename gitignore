@@ -1,2 +1,3 @@
 *.orig
 .rcop-script
+.bundle-script
