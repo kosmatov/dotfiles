@@ -1,17 +1,37 @@
 alias dcrun="docker-compose run"
-alias dcdev="docker-compose -f docker-compose-dev.yml run"
 alias rubocop="dcrun -w /app console bundle exec rubocop -F $@"
+
+function dcrun_container() {
+  container_name=$(docker-compose ps | grep console | cut -d' ' -f1)
+  [ -n "${container_name}" ] || docker-compose run -d console tail -F none
+  echo $container_name
+}
 
 function dc_project_dir() {
   [ -f 'docker-compose.yml' ] && echo '' || echo /$(basename $(pwd))
 }
 
 function vcr_env() {
-  [ -n "$VCR$VCR_UP" ] && echo " -e VCR_UP=1"
+  [ -n "$VCR$VCR_UP" ] && echo "-e VCR_UP=1 "
+}
+
+function prof_env() {
+  [ -n "$PROF" ] && echo "-e TEST_STACK_PROF=$PROF -e TEST_STACK_PROF_FORMAT=json "
+}
+
+function log_env() {
+  [ -n "$LOG" ] && echo "-e LOG=$LOG "
 }
 
 function rspec() {
-  dcrun -w /app$(dc_project_dir) -e APP_ENV=test -e RACK_ENV=test $(vcr_env) console bundle exec rspec "$@"
+  projdir=$(dc_project_dir)
+  workdir=.
+  [ -n "$projdir" ] && workdir=..
+  (cd $workdir && docker exec -ti -w /app$projdir -e APP_ENV=test -e RACK_ENV=test $(log_env)$(prof_env)$(vcr_env)$(dcrun_container) bundle exec rspec "$@")
+}
+
+function psql() {
+  docker exec -ti $(docker-compose ps | grep postgres | head -1 | cut -d' ' -f1) psql $@
 }
 
 function bundle() {
@@ -26,7 +46,7 @@ function bundle() {
         cd \$dir && echo -\\>\$(pwd) && bundle && [ \$dir = '.' ] || cd .. && echo \$(pwd)
       done
     }" > $bundle_script
-    
+
     chmod a+x $bundle_script
     dcrun -w /app console ./.bundle-script
   else
