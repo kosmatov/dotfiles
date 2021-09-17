@@ -10,7 +10,6 @@ DOTFILES=$(pwd)
 cat ~/.zshrc | grep DOTFILES || echo "export DOTFILES=${DOTFILES}" >> ~/.zshrc
 cat ~/.zshrc | grep "DOTFILES/zshrc" || echo 'source $DOTFILES/zshrc' >> ~/.zshrc
 [ $USER = key ] && cat ~/.zshrc | grep 'DOTFILES/zshrc.key' || echo 'source $DOTFILES/zshrc.key' >> ~/.zshrc
-cat ~/.vimrc | grep $DOTFILES/vimrc || echo "source $DOTFILES/vimrc" > ~/.vimrc
 cat ~/.gitconfig | grep include || echo "[include]\n\tpath = ${DOTFILES}/gitconfig" >> ~/.gitconfig
 [ -f ~/.gitignore ] || cp $DOTFILES/gitignore ~/.gitignore
 
@@ -25,3 +24,5 @@ fi
 
 [ -d ~/.config/nvim ] || mkdir -p ~/.config/nvim
 cat ~/.config/nvim/init.vim | grep $DOTFILES/neo.vim || echo "source ${DOTFILES}/neo.vim" > ~/.config/nvim/init.vim
+
+git clone https://github.com/tombell/tender-iterm2

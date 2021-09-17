@@ -1,8 +1,8 @@
 PROMPT='%{$fg[blue]%}%n%{$reset_color%} on %{$fg[red]%}%M%{$reset_color%} in %{$fg[blue]%}%~%b%{$reset_color%}$(check_git_prompt_info)
 $ '
-RPROMPT='%{%F{black}%}% $(date)%{%f%k%b%}'
+RPROMPT='%{$fg[magenta]%} $(date)%{%f%k%b%}'
 
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[white]%}"
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[green]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%})"
 
 # Text to display if the branch is dirty
