@@ -1,5 +1,5 @@
 alias dcrun="docker-compose run"
-alias rubocop="dcrun -w /app console bundle exec rubocop -F $@"
+alias rubocop="dcrun -w /app console bundle exec rubocop $@"
 
 function dcrun_container() {
   container_name=$(docker-compose ps | grep console | cut -d' ' -f1)
