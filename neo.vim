@@ -26,26 +26,26 @@ Plug 'sk1418/HowMuch'
 Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 
 " Syntax hightlighters & lang support
-Plug 'sheerun/vim-polyglot'
-" Plug 'pangloss/vim-javascript'
-" Plug 'kchmck/vim-coffee-script'
-" Plug 'tpope/vim-haml'
+" Plug 'sheerun/vim-polyglot'
+Plug 'pangloss/vim-javascript'
 " Plug 'tpope/vim-markdown'
-" Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rails'
 " Plug 'slim-template/vim-slim'
-" Plug 'vim-ruby/vim-ruby'
-" Plug 'ecomba/vim-ruby-refactoring'
+Plug 'vim-ruby/vim-ruby'
+Plug 'ecomba/vim-ruby-refactoring'
 " Plug 'szw/vim-tags'
 " " Plug 'fatih/vim-go'
 " Plug 'wting/rust.vim'
 " Plug 'guns/vim-clojure-static'
 " Plug 'tpope/vim-fireplace'
-" Plug 'elixir-editors/vim-elixir'
+Plug 'elixir-editors/vim-elixir'
 
 " Styles
 Plug 'vim-airline/vim-airline'
-Plug 'joshdick/onedark.vim'
+" Plug 'joshdick/onedark.vim'
 Plug 'jacoborus/tender.vim'
+" Plug 'projekt0n/github-nvim-theme'
+" Plug 'endel/vim-github-colorscheme'
 " Plug 'vim-airline/vim-airline-themes'
 " Plug 'sonph/onehalf', {'rtp': 'vim/'}
 " Plug 'altercation/solarized', {'rtp': 'vim-colors-solarized/'}
@@ -75,7 +75,7 @@ set softtabstop=2
 set list listchars=trail:·
 set smarttab
 set expandtab
-set foldcolumn=1
+" set foldcolumn=1
 
 set textwidth=79
 set formatoptions=qrn1
@@ -101,6 +101,10 @@ map <Leader>p "0p
 
 set shortmess+=A
 set nohlsearch
+
+let g:ctrlp_user_command = [".git", "cd %s && git ls-files -co --exclude-standard -- ':!:*/cassettes/*' ':!:*/node_modules/*' ':!:*/tmp/*' ':!:*/assets/*' ':!:*/coverage/*' ':!:*/log/*'"]
+let g:ctrlp_use_caching = 0
+
 set wildignore+=*/tmp/*,*/node_modules/*,*/public/assets*,*/coverage/*,*/log/*,*/.git/*,*/cassettes/*
 set title
 au BufEnter * let &titlestring = getcwd()
@@ -112,7 +116,7 @@ tnoremap <C-k> <C-\><C-N><C-w>k
 tnoremap <C-[> <C-\><C-N>
 
 set termguicolors
-set background=dark
+set background=light
 colorscheme tender
 let g:airline_theme = 'tender'
 let g:airline_powerline_fonts = 1
@@ -128,21 +132,28 @@ hi DiffText cterm=bold ctermfg=10 ctermbg=88
 hi DiffDelete cterm=bold ctermfg=10 ctermbg=17
 hi DiffChange cterm=bold ctermfg=10 ctermbg=17
 
-au termopen * setlocal foldcolumn=0
+" au termopen * setlocal foldcolumn=0
+
+" augroup myterm | au!
+"     au termopen * if &buftype ==# 'terminal' | vert resize 80 | endif
+" augroup end
 
 function! VsTe()
   vs
   te
-  setlocal foldcolumn=0
+  " setlocal foldcolumn=0
 endfunction
 
 function! DefaultWorkspace()
   if winwidth(0) >= 160 
     te
-    setlocal foldcolumn=0
+    " setlocal foldcolumn=0
   endif
 
-  if winwidth(0) >= 240 | call VsTe() | endif
+  if winwidth(0) >= 240 
+    call VsTe() 
+  endif
+
   vnew
 endfunction
 
