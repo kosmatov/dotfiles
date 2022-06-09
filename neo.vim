@@ -11,8 +11,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-fugitive'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/syntastic'
+Plug 'preservim/nerdtree'
+" Plug 'vim-syntastic/syntastic'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'skalnik/vim-vroom'
 Plug 'majutsushi/tagbar'
@@ -23,22 +23,25 @@ Plug 'ddollar/nerdcommenter'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'ahw/vim-pbcopy'
 Plug 'sk1418/HowMuch'
-Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
+" Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
+
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'mfussenegger/nvim-lint'
 
 " Syntax hightlighters & lang support
 " Plug 'sheerun/vim-polyglot'
-Plug 'pangloss/vim-javascript'
-" Plug 'tpope/vim-markdown'
-Plug 'tpope/vim-rails'
-" Plug 'slim-template/vim-slim'
-Plug 'vim-ruby/vim-ruby'
-Plug 'ecomba/vim-ruby-refactoring'
-" Plug 'szw/vim-tags'
-" " Plug 'fatih/vim-go'
-Plug 'wting/rust.vim'
-" Plug 'guns/vim-clojure-static'
-" Plug 'tpope/vim-fireplace'
-Plug 'elixir-editors/vim-elixir'
+" Plug 'pangloss/vim-javascript'
+" " Plug 'tpope/vim-markdown'
+" Plug 'tpope/vim-rails'
+" " Plug 'slim-template/vim-slim'
+" Plug 'vim-ruby/vim-ruby'
+" Plug 'ecomba/vim-ruby-refactoring'
+" " Plug 'szw/vim-tags'
+" " " Plug 'fatih/vim-go'
+" Plug 'wting/rust.vim'
+" " Plug 'guns/vim-clojure-static'
+" " Plug 'tpope/vim-fireplace'
+" Plug 'elixir-editors/vim-elixir'
 
 " Styles
 Plug 'vim-airline/vim-airline'
@@ -54,7 +57,17 @@ call plug#end()
 
 syntax enable
 set noshowmode
-au BufNewFile,BufRead *.slim setf slim
+" au BufNewFile,BufRead *.slim setf slim
+
+lua << EOF
+local ruby = require('lint.linters.ruby')
+ruby.stream = 'both'
+ruby.ignore_exit_code = false
+
+require('lint').linters_by_ft = {
+  ruby = {'ruby',}
+}
+EOF
 
 nmap s <Plug>(easymotion-overwin-f2)
 let g:EasyMotion_smartcase=1
@@ -62,7 +75,7 @@ map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 filetype plugin indent on
 
-let g:go_disable_autoinstall = 1
+" let g:go_disable_autoinstall = 1
 let g:vim_pbcopy_remote_cmd = "ssh host-machine pbcopy"
 
 map <C-n> :NERDTreeToggle \| BuffergatorClose<CR>
@@ -93,7 +106,7 @@ if &diff
   nnoremap <down> :<down>
 endif
 
-nnoremap ; :
+" nnoremap ; :
 map <Leader>p "0p
 
 " au FocusLost * :wa
@@ -102,7 +115,7 @@ map <Leader>p "0p
 set shortmess+=A
 set nohlsearch
 
-let g:ctrlp_user_command = [".git", "cd %s && git ls-files -co --exclude-standard -- ':!:*/cassettes/*' ':!:*/node_modules/*' ':!:*/tmp/*' ':!:*/assets/*' ':!:*/coverage/*' ':!:*/log/*'"]
+let g:ctrlp_user_command = [".git", "cd %s && git ls-files -co --exclude-standard -- ':!:*/cassettes/*' ':!:*/node_modules/*' ':!:*public/app/js/*' ':!:*/tmp/*' ':!:*/assets/*' ':!:*/coverage/*' ':!:*/log/*'"]
 let g:ctrlp_use_caching = 0
 
 set wildignore+=*/tmp/*,*/node_modules/*,*/public/assets*,*/coverage/*,*/log/*,*/.git/*,*/cassettes/*
@@ -114,6 +127,7 @@ tnoremap <C-h> <C-\><C-N><C-w>h
 tnoremap <C-j> <C-\><C-N><C-w>j
 tnoremap <C-k> <C-\><C-N><C-w>k
 tnoremap <C-[> <C-\><C-N>
+tnoremap <Esc> <C-\><C-n>
 
 set termguicolors
 set background=light
@@ -121,8 +135,11 @@ colorscheme tender
 let g:airline_theme = 'tender'
 let g:airline_powerline_fonts = 1
 
-hi VertSplit ctermfg=242 guifg=#666666
-hi FoldColumn ctermbg=None guibg=None
+hi Normal ctermbg=none guibg=none
+hi NonText ctermbg=none guibg=none
+hi SpecialKey ctermbg=none guibg=none 
+hi VertSplit ctermfg=242 guifg=#666666 ctermbg=none guibg=none
+hi FoldColumn ctermbg=none guibg=none
 hi ColorColumn ctermbg=0
 hi TabLine ctermbg=0
 hi SpecialKey cterm=bold ctermfg=10
@@ -161,5 +178,6 @@ command! -register Vste call VsTe()
 command! -register DefaultWorkspace call DefaultWorkspace()
 
 au vimenter * if !argc() | call DefaultWorkspace() | endif
+au BufWritePost <buffer> lua require('lint').try_lint()
 
 map <C-t> :Vste<CR>
