@@ -137,12 +137,12 @@ let g:airline_powerline_fonts = 1
 
 hi Normal ctermbg=none guibg=none
 hi NonText ctermbg=none guibg=none
-hi SpecialKey ctermbg=none guibg=none 
 hi VertSplit ctermfg=242 guifg=#666666 ctermbg=none guibg=none
 hi FoldColumn ctermbg=none guibg=none
 hi ColorColumn ctermbg=0
 hi TabLine ctermbg=0
-hi SpecialKey cterm=bold ctermfg=10
+hi SpecialKey cterm=bold ctermfg=10 ctermbg=none guibg=none 
+hi Visual guifg=none ctermfg=none guibg=#394b54 ctermbg=237 gui=bold cterm=bold
 
 hi DiffAdd cterm=bold ctermfg=10 ctermbg=17
 hi DiffText cterm=bold ctermfg=10 ctermbg=88
