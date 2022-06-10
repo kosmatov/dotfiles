@@ -143,6 +143,7 @@ hi ColorColumn ctermbg=0
 hi TabLine ctermbg=0
 hi SpecialKey cterm=bold ctermfg=10 ctermbg=none guibg=none 
 hi Visual guifg=none ctermfg=none guibg=#394b54 ctermbg=237 gui=bold cterm=bold
+hi LineNr guifg=#6a6a6a ctermfg=242
 
 hi DiffAdd cterm=bold ctermfg=10 ctermbg=17
 hi DiffText cterm=bold ctermfg=10 ctermbg=88
