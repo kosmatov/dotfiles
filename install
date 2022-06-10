@@ -13,6 +13,7 @@ cat ~/.zshrc | grep "DOTFILES/zshrc" || echo 'source $DOTFILES/zshrc' >> ~/.zshr
 [ $USER = key ] && cat ~/.zshrc | grep 'DOTFILES/zshrc.key' || echo 'source $DOTFILES/zshrc.key' >> ~/.zshrc
 cat ~/.gitconfig | grep include || echo "[include]\n\tpath = ${DOTFILES}/gitconfig" >> ~/.gitconfig
 [ -f ~/.gitignore ] || cp $DOTFILES/gitignore ~/.gitignore
+[ -d ~/.bin] || mkdir ~/.bin
 
 source ~/.zshrc
 

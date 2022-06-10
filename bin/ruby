@@ -1,0 +1,4 @@
+#!/usr/bin/zsh
+
+echo "$0 $@" >> /tmp/ruby.log
+dexec_console ruby $(echo "$@" | sed -e s:$(pwd)/::)

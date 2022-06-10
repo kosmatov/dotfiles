@@ -5,15 +5,16 @@ alias elixirc="dexec_console elixirc $@"
 alias elixir="dexec_console elixir $@"
 alias mix="dexec_console mix $@"
 alias cargo="dexec_console cargo $@"
+alias pio="dexec_console pio $@"
 
 function dc_console_container() {
-  docker-compose ps | grep console | cut -d' ' -f1
+  docker-compose ps -a | grep console | grep running | cut -d' ' -f1
 }
 
 function dexec_console() {
   project_dir=$(dc_project_dir)
   [ -n "$(dc_console_container)" ] || docker-compose run -d console tail -F none
-  (cd $(dc_workdir) && docker exec -ti -w /app$project_dir $(echo $DEXEC_ARGV) $(dc_console_container) $@)
+  (cd $(dc_workdir) && docker exec -i -w /app$project_dir $(echo $DEXEC_ARGV) $(dc_console_container) $@ && exit 1)
 }
 
 function dc_workdir() {
@@ -66,7 +67,7 @@ function bundle() {
 
 function rcop() {
   base_branch=$(git rev-parse --verify --symbolic -q develop || echo -n master)
-  rcop_files=$(git diff $base_branch..HEAD --name-only --diff-filter=dr | grep -E \*rb)
+  rcop_files=$(git diff origin/$base_branch..HEAD --name-only --diff-filter=dr | grep -E "*\.rb")
   workdir=$(dc_workdir)
   echo "#!/bin/bash\necho \"$rcop_files\" | xargs bundle exec rubocop $@" > $workdir/.rcop-script
   chmod a+x $workdir/.rcop-script
