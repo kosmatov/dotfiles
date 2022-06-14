@@ -15,8 +15,6 @@ cat ~/.gitconfig | grep include || echo "[include]\n\tpath = ${DOTFILES}/gitconf
 
 source ~/.zshrc
 
-[ -f ~/.ctags ] || cp $DOTFILES/ctags ~/.ctags
-
 if [ ! -f ~/.vim/autoload/plug.vim ]; then
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   vim +PlugInstall +qa
@@ -25,4 +23,9 @@ fi
 [ -d ~/.config/nvim ] || mkdir -p ~/.config/nvim
 cat ~/.config/nvim/init.vim | grep $DOTFILES/neo.vim || echo "source ${DOTFILES}/neo.vim" > ~/.config/nvim/init.vim
 
-git clone https://github.com/tombell/tender-iterm2
+if uname | grep Darwin > /dev/null 2>&1; then
+  git clone https://github.com/kosmatov/sleepwatcher-wezterm $DOTFILES/sleepwatcher-wezterm
+  make -C $DOTFILES/sleepwatcher-wezterm install
+  git clone https://github.com/myshov/xkbswitch-macosx $DOTFILES/xkbswitch-macosx
+  ln -s $DOTFILES/wezterm.lua ~/.wezterm.lua
+end
