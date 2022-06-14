@@ -1,5 +1,6 @@
 ZSH=~/.oh-my-zsh
-ZSH_THEME=$DOTFILES/akm
+ZSH_CUSTOM=$DOTFILES
+ZSH_THEME=akm
 plugins=(vi-mode history-substring-search per-directory-history timer)
 
 export EDITOR=vim
