@@ -12,7 +12,7 @@ return {
     top = 5,
     bottom = 5,
   },
-  window_background_image = "sleepwatcher-wezterm/images/sunset-clouds-nature-scenery-thunderstorm-lightning.png",
+  window_background_image = "dotfiles/sleepwatcher-wezterm/images/sunset-clouds-nature-scenery-thunderstorm-lightning.png",
   initial_cols = 175,
   initial_rows = 87,
   use_resize_increments = false
