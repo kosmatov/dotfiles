@@ -25,7 +25,7 @@ Plug 'ahw/vim-pbcopy'
 Plug 'sk1418/HowMuch'
 " Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 
-Plug 'nvim-treesitter/nvim-treesitter'
+" Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'mfussenegger/nvim-lint'
 
 " Syntax hightlighters & lang support
