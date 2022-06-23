@@ -2,8 +2,11 @@ Just dotfiles
 
 ### Installation
 
-* Clone this repo
-* Run installation script: `dotfiles/install`
+```
+git clone https://github.com/kosmatov/dotfiles
+cd dotfiles/
+./install
+```
 
 ### Screenshots
 
