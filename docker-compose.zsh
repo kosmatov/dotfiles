@@ -44,7 +44,7 @@ function rspec() {
 }
 
 function psql() {
-  docker exec -ti $(docker-compose ps | grep postgres | head -1 | cut -d' ' -f1) psql $@
+  docker exec -ti $(docker-compose ps | grep $(basename $(pwd))-db | head -1 | cut -d' ' -f1) psql $@
 }
 
 function bundle() {
