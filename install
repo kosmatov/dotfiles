@@ -24,12 +24,3 @@ fi
 
 [ -d ~/.config/nvim ] || mkdir -p ~/.config/nvim
 cat ~/.config/nvim/init.vim | grep $DOTFILES/neo.vim || echo "source ${DOTFILES}/neo.vim" > ~/.config/nvim/init.vim
-
-if uname | grep Darwin > /dev/null 2>&1; then
-  if [ ! -d $DOTFILES/sleepwatcher-wezterm ]; then
-    git clone https://github.com/kosmatov/sleepwatcher-wezterm $DOTFILES/sleepwatcher-wezterm
-    make -C $DOTFILES/sleepwatcher-wezterm install
-  fi
-  
-  [ -L ~/.wezterm.lua ] || ln -s $DOTFILES/wezterm.lua ~/.wezterm.lua
-fi
