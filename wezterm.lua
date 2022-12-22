@@ -12,7 +12,17 @@ return {
     top = 5,
     bottom = 5,
   },
-  window_background_image = "__dotfiles__/sleepwatcher-wezterm/images/sunrise-sunflowers-flower-field-nature-scenery-4k-wallpaper-3840x2160.png",
+  background = {
+    {
+      source = {File="__dotfiles__/sleepwatcher-wezterm/images/sunrise-sunflowers-flower-field-nature-scenery-4k-wallpaper-3840x2160.png"},
+      repeat_x = "NoRepeat",
+      repeat_y = "NoRepeat",
+      vertical_align = "Middle",
+      horizontal_align = "Center",
+      width = "Cover",
+      height = "Cover",
+    },
+  },
   initial_cols = 175,
   initial_rows = 87,
   use_resize_increments = false
