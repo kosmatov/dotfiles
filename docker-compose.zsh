@@ -8,7 +8,7 @@ alias cargo="dexec_console cargo $@"
 alias pio="dexec_console pio $@"
 
 function dc_console_container() {
-  docker-compose ps -a | grep console | grep running | cut -d' ' -f1
+  docker-compose ps -a | grep console | grep Up | cut -d' ' -f1
 }
 
 function dexec_console() {
