@@ -31,8 +31,10 @@
     upd = pull --rebase origin develop
     put = push origin HEAD
     lp = log -p
-    ll = log --pretty=format:\"%h %Cblue%ar %Cgreen%an%Creset: %s %Cred%d\"
+    lla = log --pretty=format:\"%h %Cblue%ar %Cgreen%an%Creset: %s %Cred%d\"
+    ll = lla -5
     gr = log --graph --pretty=format:\"%Cred%h %Cblue%ar%Creset %Cgreen%an%Creset %s %Cred%d\"
+    set-upstream = !"git branch -u origin/$(git symbolic-ref --short HEAD)"
 
 [core]
   editor = nvr -o
@@ -52,3 +54,6 @@
 [mergetool "nvr"]
   cmd = nvr -s -d $MERGED
   prompt = false
+
+[push]
+  autoSetupRemote = true
