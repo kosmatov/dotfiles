@@ -3,3 +3,4 @@ sleepwatcher-wezterm/
 xkbswitch-macosx/
 wezterm.lua~
 Makefile
+*lock.json

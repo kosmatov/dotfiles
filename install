@@ -13,14 +13,8 @@ cat ~/.zshrc | grep "DOTFILES/zshrc" || echo 'source $DOTFILES/zshrc' >> ~/.zshr
 [ $USER = key ] && cat ~/.zshrc | grep 'DOTFILES/zshrc.key' || echo 'source $DOTFILES/zshrc.key' >> ~/.zshrc
 cat ~/.gitconfig | grep include || echo "[include]\n\tpath = ${DOTFILES}/gitconfig" >> ~/.gitconfig
 [ -f ~/.gitignore ] || cp $DOTFILES/gitignore ~/.gitignore
-[ -d ~/.bin] || mkdir ~/.bin
+mkdir -p ~/.bin
 
 source ~/.zshrc
 
-if [ ! -f ~/.vim/autoload/plug.vim ]; then
-  curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  nvim +PlugInstall +qa
-fi
-
-[ -d ~/.config/nvim ] || mkdir -p ~/.config/nvim
-cat ~/.config/nvim/init.vim | grep $DOTFILES/neo.vim || echo "source ${DOTFILES}/neo.vim" > ~/.config/nvim/init.vim
+[ -L ~/.config/nvim ] || ln -s ${DOTFILES}/lazyvim ~/.config/nvim
