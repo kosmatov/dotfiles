@@ -57,6 +57,9 @@ call plug#end()
 
 syntax enable
 set noshowmode
+set autoread
+set autowrite
+au BufLeave,FocusLost * silent! wall
 " au BufNewFile,BufRead *.slim setf slim
 
 lua << EOF
@@ -175,10 +178,18 @@ function! DefaultWorkspace()
   vnew
 endfunction
 
+function! BindingPry()
+  call append(line("."), "Kernel.binding.pry")
+endfunction
+
+command! -register BindingPry call BindingPry()
 command! -register Vste call VsTe()
 command! -register DefaultWorkspace call DefaultWorkspace()
 
 au vimenter * if !argc() | call DefaultWorkspace() | endif
 au BufWritePost <buffer> lua require('lint').try_lint()
+au FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
+let $GIT_EDITOR = 'nvr -cc split --remote-wait'
 
 map <C-t> :Vste<CR>
+map <C-b> :BindingPry<CR>:w<CR>

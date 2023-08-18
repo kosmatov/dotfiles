@@ -4,17 +4,26 @@ alias iex="dexec_console iex $@"
 alias elixirc="dexec_console elixirc $@"
 alias elixir="dexec_console elixir $@"
 alias mix="dexec_console mix $@"
-alias cargo="dexec_console cargo $@"
 alias pio="dexec_console pio $@"
 
 function dc_console_container() {
+  container=$(grep_dc_console_container)
+  if [ -z "$container" ]; then
+    docker-compose run -d console tail -F none
+    sleep 5
+    grep_dc_console_container
+  else
+    echo $container
+  fi
+}
+
+function grep_dc_console_container() {
   docker-compose ps -a | grep console | grep Up | cut -d' ' -f1
 }
 
 function dexec_console() {
   project_dir=$(dc_project_dir)
-  [ -n "$(dc_console_container)" ] || docker-compose run -d console tail -F none
-  (cd $(dc_workdir) && docker exec -i -w /app$project_dir $(echo $DEXEC_ARGV) $(dc_console_container) $@ && exit 1)
+  (cd $(dc_workdir) && docker exec -ti -w /app/$project_dir $(echo $DEXEC_ARGV) $(dc_console_container) $@ && exit 1)
 }
 
 function dc_workdir() {
@@ -22,25 +31,28 @@ function dc_workdir() {
 }
 
 function dc_project_dir() {
-  [ -f 'docker-compose.yml' ] && echo '' || echo /$(basename $(pwd))
+  [ -f 'docker-compose.yml' ] && echo '' || echo $(basename $(pwd))
 }
 
 function vcr_env() {
-  [ -n "$VCR$VCR_UP" ] && echo "-e VCR_UP=1 "
+  [ -n "$VCR$VCR_UP" ] && echo " -e VCR_UP=1"
 }
 
 function prof_env() {
-  [ -n "$PROF" ] && echo "-e TEST_STACK_PROF=$PROF -e TEST_STACK_PROF_FORMAT=json "
+  [ -n "$PROF" ] && echo " -e TEST_STACK_PROF=$PROF -e TEST_STACK_PROF_FORMAT=json"
 }
 
 function log_env() {
-  [ -n "$LOG" ] && echo "-e LOG=$LOG "
+  [ -n "$LOG" ] && echo " -e LOG=$LOG"
 }
 
 function rspec() {
   project_dir=$(dc_project_dir)
-  [ -n "$(dc_console_container)" ] || docker-compose run -d console tail -F none
-  (cd $(dc_workdir) && docker exec -ti -w /app$project_dir -e APP_ENV=test -e RACK_ENV=test $(log_env)$(prof_env)$(vcr_env)$(dc_console_container) bundle exec rspec "$@")
+  [ -z "$project_dir" ] && project_dir=$(echo $1 | cut -d/ -f1)
+  cmd_args="$@"
+  cmd_args="-e APP_ENV=test -e RACK_ENV=test$(log_env)$(prof_env)$(vcr_env) $(dc_console_container) bundle exec rspec "${cmd_args#$project_dir/}
+  (cd $(dc_workdir) && docker exec -ti -w /app/$project_dir $(echo $cmd_args))
+  [ -n "$vcr_env" ] && chown -R $USER $project_dir/spec/cassettes
 }
 
 function psql() {
@@ -62,6 +74,7 @@ function bundle() {
     (cd $(dc_workdir) && dexec_console ./.bundle-script)
   else
     DEXEC_ARGV="-e APP_ENV=test -e RACK_ENV=test" dexec_console bundle $@
+    chown -R $USER $(dc_project_dir)
   fi
 }
 

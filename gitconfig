@@ -48,11 +48,11 @@
   tool = nvr
 
 [difftool "nvr"]
-  cmd = nvr -s -d $LOCAL $REMOTE
+  cmd = nvr -s -d -O $LOCAL $REMOTE
   prompt = false
 
 [mergetool "nvr"]
-  cmd = nvr -s -d $MERGED
+  cmd = nvr -s -O $MERGED
   prompt = false
 
 [push]
