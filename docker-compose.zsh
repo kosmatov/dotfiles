@@ -84,5 +84,6 @@ function rcop() {
   workdir=$(dc_workdir)
   echo "#!/bin/bash\necho \"$rcop_files\" | xargs bundle exec rubocop $@" > $workdir/.rcop-script
   chmod a+x $workdir/.rcop-script
-  (cd $workdir && dexec_console ./.rcop-script)
+  project_dir=$(dc_project_dir)
+  (cd $(dc_workdir) && docker exec -i -w /app/$project_dir $(dc_console_container) ./.rcop-script && exit 1)
 }
