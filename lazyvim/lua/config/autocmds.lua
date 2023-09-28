@@ -2,13 +2,6 @@
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
 
-vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = { "*" },
-  callback = function()
-    vim.cmd("let &titlestring = getcwd()")
-  end,
-})
-
 vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost" }, {
   pattern = { "*" },
   callback = function()
@@ -19,6 +12,20 @@ vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost" }, {
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "gitcommit", "gitrebase", "gitconfig" },
   callback = function()
-    vim.cmd("set bufhidden=delete")
+    vim.opt.bufhidden = "delete"
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "VimResized", "BufLeave" }, {
+  pattern = { "*" },
+  callback = function()
+    vim.cmd("wincmd =")
+  end,
+})
+
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function()
+    vim.b.miniindentscope_disable = true
+    vim.cmd.startinsert()
   end,
 })
