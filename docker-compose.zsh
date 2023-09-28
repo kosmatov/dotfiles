@@ -48,11 +48,11 @@ function log_env() {
 
 function rspec() {
   project_dir=$(dc_project_dir)
-  [ -z "$project_dir" ] && project_dir=$(echo $1 | cut -d/ -f1)
+  [ -z "$project_dir" ] && project_dir=$(echo $1 | cut -d/ -f1 | grep -v spec)
   cmd_args="$@"
   cmd_args="-e APP_ENV=test -e RACK_ENV=test$(log_env)$(prof_env)$(vcr_env) $(dc_console_container) bundle exec rspec "${cmd_args#$project_dir/}
   (cd $(dc_workdir) && docker exec -ti -w /app/$project_dir $(echo $cmd_args))
-  [ -n "$vcr_env" ] && chown -R $USER $project_dir/spec/cassettes
+  [ -n "$vcr_env" ] && sudo chown -R $USER $(dc_workdir)/$project_dir/spec/cassettes
 }
 
 function psql() {
@@ -74,7 +74,7 @@ function bundle() {
     (cd $(dc_workdir) && dexec_console ./.bundle-script)
   else
     DEXEC_ARGV="-e APP_ENV=test -e RACK_ENV=test" dexec_console bundle $@
-    chown -R $USER $(dc_project_dir)
+    sudo chown -R $USER $(dc_workdir)/$(dc_project_dir)
   fi
 }
 
