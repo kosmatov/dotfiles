@@ -6,7 +6,6 @@ install: Makefile sleepwatcher-wezterm
 
 sleepwatcher-wezterm:
 	git clone https://github.com/kosmatov/sleepwatcher-wezterm
-	make -C ./sleepwatcher-wezterm install
 
 Makefile:
 	ln -s Makefile.osx Makefile
