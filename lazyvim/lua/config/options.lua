@@ -11,6 +11,7 @@ opt.mouse = {}
 opt.title = true
 opt.titlestring = "%F"
 opt.formatoptions = "qrn1"
+opt.cursorline = false
 
 env.GIT_EDITOR = "nvr -cc split --remote-wait"
 
