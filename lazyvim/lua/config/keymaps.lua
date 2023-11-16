@@ -16,10 +16,7 @@ map("t", "<C-h>", "<esc><esc><C-w>h", { desc = "Go to left window", remap = true
 map("t", "<C-j>", "<esc><esc><C-w>j", { desc = "Go to lower window", remap = true })
 map("t", "<C-k>", "<esc><esc><C-w>k", { desc = "Go to upper window", remap = true })
 map("t", "<C-l>", "<esc><esc><C-w>l", { desc = "Go to right window", remap = true })
-map({ "n", "i" }, "<C-m>", "<esc><C-w>|", { desc = "Maximize current window", remap = true })
+map("n", "<leader>wm", "<C-w>|", { desc = "Maximize current window", remap = true })
 
--- Git
-map("n", "<leader>gg", "<cmd>Git<cr>", { desc = "fugitive", remap = true })
-map("n", "<leader>gG", "<cmd>Git<cr>", { desc = "fugitive", remap = true })
-map("n", "<leader>gb", "<cmd>Git blame<cr>", { desc = "blame", remap = true })
-map("n", "<leader>gv", require("git").git_vsplit, { desc = "vsplit", remap = true })
+-- Coding
+map({"n", "v"}, "<leader>cgc", "gc", { desc = "Comment (gc)" }) -- :help mini.comment
