@@ -1,0 +1,29 @@
+#!/bin/bash
+
+case $1 in
+  lsp)
+    gem install rubocop
+    rubocop --lsp
+  ;;
+  install)
+    mkdir -p .rubocop-lsp
+    cp $0 .rubocop-lsp/run
+  ;;
+  docker)
+    docker-compose run --rm console /app/.rubocop-lsp/run lsp
+  ;;
+  *)
+    echo "usage:"
+    echo
+    echo "$0 docker  - run in docker-compose"
+    echo "$0 lsp     - run lsp server"
+    echo "$0 install - install to current dir"
+    echo
+    echo "lspconfig:"
+    echo "  servers = {"
+    echo "    rubocop_ls = {"
+    echo "      cmd = { \".rubocop-lsp/run\", \"docker\" },"
+    echo "    }"
+    echo "  }"
+  ;;
+esac

@@ -7,5 +7,6 @@ return {
   },
   { "akinsho/bufferline.nvim", enabled = false },
   { "echasnovski/mini.pairs", enabled = false },
-  { import = "lazyvim.plugins.extras.lang.rust" },
+  { "williamboman/mason.nvim", enabled = false },
+  { "williamboman/mason-lspconfig.nvim", enabled = false },
 }

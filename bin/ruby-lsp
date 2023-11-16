@@ -1,0 +1,33 @@
+#!/bin/bash
+
+case $1 in
+  lsp)
+    if [ -f /app/.ruby-lsp/Gemfile.lock ]; then
+      bundle install --gemfile=/app/.ruby-lsp/Gemfile
+      bundle exec --gemfile=/app/.ruby-lsp/Gemfile lsp
+    else
+      gem install ruby-lsp
+      ruby-lsp
+    fi
+  ;;
+  install)
+    mkdir -p .ruby-lsp
+    cp $0 .ruby-lsp/run
+  ;;
+  docker)
+    docker-compose run --rm console /app/.ruby-lsp/run lsp
+  ;;
+  *)
+    echo "usage:"
+    echo
+    echo "$0 docker  - run in docker-compose"
+    echo "$0 lsp     - run lsp server"
+    echo "$0 install - install to current dir"
+    echo
+    echo "lspconfig:"
+    echo "  servers = {"
+    echo "    rubocop_ls = {"
+    echo "      cmd = { \".ruby-lsp/run\", \"docker\" },"
+    echo "    }"
+    echo "  }"
+esac

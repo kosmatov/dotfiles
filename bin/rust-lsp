@@ -1,0 +1,7 @@
+#!/bin/bash
+
+case $1 in
+  *)
+    docker-compose run --rm console rust-analyzer
+  ;;
+esac
