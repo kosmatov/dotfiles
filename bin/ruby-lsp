@@ -4,7 +4,7 @@ case $1 in
   lsp)
     if [ -f /app/.ruby-lsp/Gemfile.lock ]; then
       bundle install --gemfile=/app/.ruby-lsp/Gemfile
-      bundle exec --gemfile=/app/.ruby-lsp/Gemfile lsp
+      bundle exec --gemfile=/app/.ruby-lsp/Gemfile ruby-lsp
     else
       gem install ruby-lsp
       ruby-lsp
