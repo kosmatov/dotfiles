@@ -22,3 +22,5 @@ map("n", "<leader>wm", "<C-w>|", { desc = "Maximize current window", remap = tru
 map({"n", "v"}, "<leader>cgc", "gc", { desc = "Comment (gc)" }) -- :help mini.comment
 map("n", "<leader>cb", "<C-b>", { desc = "Breakpoint (<C-b>)" })
 map("n", "<leader>ct", "<C-a>", { desc = "Run tests (<C-a>)" })
+
+map("n", "<leader>snt", vim.cmd("Telescope noice"), { desc = "Noice Telescope" })

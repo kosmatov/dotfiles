@@ -9,4 +9,6 @@ return {
   { "echasnovski/mini.pairs", enabled = false },
   { "williamboman/mason.nvim", enabled = false },
   { "williamboman/mason-lspconfig.nvim", enabled = false },
+  { "williamboman/mason-lspconfig.nvim", enabled = false },
+  { "mfussenegger/nvim-lint", enabled = false },
 }
