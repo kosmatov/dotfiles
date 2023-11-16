@@ -9,10 +9,10 @@ DOTFILES=$(pwd)
 
 echo "export DOTFILES=${DOTFILES}" > ~/.dotfiles
 cat ~/.zshrc | grep "\.dotfiles" || echo ". ${HOME}/.dotfiles" > ~/.zshrc
-cat ~/.zshrc | grep "DOTFILES/zshrc" || echo 'source $DOTFILES/zshrc' >> ~/.zshrc
-[ $USER = key ] && cat ~/.zshrc | grep 'DOTFILES/zshrc.key' || echo 'source $DOTFILES/zshrc.key' >> ~/.zshrc
-cat ~/.gitconfig | grep include || echo "[include]\n\tpath = ${DOTFILES}/gitconfig" >> ~/.gitconfig
-[ -f ~/.gitignore ] || cp $DOTFILES/gitignore ~/.gitignore
+cat ~/.zshrc | grep "DOTFILES/zsh/rc" || echo 'source $DOTFILES/zsh/rc' >> ~/.zshrc
+[ $USER = key ] && cat ~/.zshrc | grep 'DOTFILES/zsh/keyrc' || echo 'source $DOTFILES/zsh/keyrc' >> ~/.zshrc
+cat ~/.gitconfig | grep include || echo "[include]\n\tpath = ${DOTFILES}/git/config" >> ~/.gitconfig
+[ -f ~/.gitignore ] || cp $DOTFILES/git/ignore ~/.gitignore
 mkdir -p ~/.bin
 
 source ~/.zshrc
