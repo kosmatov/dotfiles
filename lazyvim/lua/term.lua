@@ -1,5 +1,5 @@
 local function term()
-  vim.cmd.cd(require("lazyvim.util").get_root())
+  vim.cmd.cd(require("lazyvim.util").root.get())
   vim.cmd("vs +te")
 end
 
