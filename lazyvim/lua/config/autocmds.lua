@@ -19,8 +19,8 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "ruby" },
   callback = function()
-    vim.keymap.set("n", "<C-b>", require("breakpoint").pry, { desc = "Set breakpoint", remap = true })
-    vim.keymap.set("n", "<leader>ct", require("test").rspec, { desc = "Run rspec", remap = true })
+    vim.keymap.set("n", "<C-b>", require("breakpoint").pry, { desc = "Set breakpoint" })
+    vim.keymap.set("n", "<C-a>", require("test").rspec, { desc = "Run rspec" })
   end,
 })
 
