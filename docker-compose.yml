@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  console: &console
+    build:
+      context: ./docker
+    command: /app/bin/lua-language-server

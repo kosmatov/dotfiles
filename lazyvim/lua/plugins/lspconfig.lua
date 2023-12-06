@@ -5,13 +5,11 @@ return {
   },
   opts = {
    servers = {
-      rust_analyzer = {
-        cmd = { "~/dotfiles/bin/rust-lsp", "docker" },
-      },
-      ruby_ls = {
-        cmd = { ".ruby-lsp/run", "docker" },
+      solargraph = {
+        cmd = { "ruby-lsp", "docker-compose", require'util'.git_root_dir() },
       },
       lua_ls = {
+        cmd = { "lua-lsp", "docker-compose", require'util'.git_root_dir() },
         settings = {
           Lua = {
             completion = {

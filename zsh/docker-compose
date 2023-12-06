@@ -18,7 +18,7 @@ function dc_console_container() {
 }
 
 function grep_dc_console_container() {
-  docker-compose ps -a | grep console | grep Up | cut -d' ' -f1
+  docker-compose ps -a | grep console | grep Up | head -1 | cut -d' ' -f1
 }
 
 function dexec_console() {

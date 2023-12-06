@@ -1,0 +1,10 @@
+#!/bin/bash
+
+case $1 in
+  docker-compose)
+    docker-compose run --rm -v $2:$2:z -w $2 console
+  ;;
+  *)
+    echo "Usage:"
+    echo "  $0 docker <workdir>"
+esac

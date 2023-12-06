@@ -1,7 +1,10 @@
 #!/bin/bash
 
 case $1 in
-  *)
-    docker-compose run --rm console rust-analyzer
+  docker-compose)
+    docker-compose run --rm -v $2:$2:z -w $2 console rust-analyzer
   ;;
+  *)
+    echo "Usage:"
+    echo "  $0 docker-compose <working_dir>"
 esac
