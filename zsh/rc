@@ -1,7 +1,10 @@
 ZSH=~/.oh-my-zsh
 ZSH_CUSTOM=$DOTFILES/zsh
 ZSH_THEME=akm
+
 PATH=$PATH:$DOTFILES/bin
+[ -d /opt/homebrew ] && PATH=$PATH:/opt/homebrew/bin
+
 plugins=(vi-mode history-substring-search per-directory-history timer)
 
 export EDITOR=vim

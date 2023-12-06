@@ -5,7 +5,7 @@ Just dotfiles
 ```
 git clone https://github.com/kosmatov/dotfiles
 cd dotfiles/
-./install
+make install
 ```
 
 ### Screenshots
