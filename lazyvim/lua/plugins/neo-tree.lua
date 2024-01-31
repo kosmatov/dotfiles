@@ -24,6 +24,7 @@ return {
       window = {
         mappings = {
           ["/"] = "noop",
+          ["z"] = "noop",
         },
       },
     },

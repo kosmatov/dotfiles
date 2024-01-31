@@ -19,7 +19,7 @@ map("t", "<C-l>", "<esc><esc><C-w>l", { desc = "Go to right window", remap = tru
 map("n", "<leader>wm", "<C-w>|", { desc = "Maximize current window", remap = true })
 
 -- Coding
-map({"n", "v"}, "<leader>cgc", "gc", { desc = "Comment (gc)" }) -- :help mini.comment
+map({ "n", "v" }, "<leader>cgc", "gc", { desc = "Comment (gc)" }) -- :help mini.comment
 map("n", "<leader>cb", "<C-b>", { desc = "Breakpoint (<C-b>)" })
 map("n", "<leader>ct", "<C-a>", { desc = "Run tests (<C-a>)" })
 map("n", "<leader>fg", require("telescope.builtin").git_files, { desc = "Telescope git files" })
