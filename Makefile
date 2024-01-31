@@ -4,7 +4,7 @@ DARWIN := $(shell uname | grep Darwin)
 install: zshrc gitconfig ~/.config/nvim ~/.wezterm.lua
 
 ~/.oh-my-zsh:
-  curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+	curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
 
 ~/.dotfiles:
 	echo "export DOTFILES=$(DOTFILES)" > ~/.dotfiles
