@@ -14,15 +14,32 @@ return {
 	background = {
 		{
 			source = {
-				File = "__dotfiles__/sleepwatcher-wezterm/images/source/mask.png",
+				File = "__dotfiles__/sleepwatcher-wezterm/images/Moon.jpg",
+			},
+			repeat_x = "NoRepeat",
+			repeat_y = "NoRepeat",
+      hsb = {
+        hue = 1,
+        brightness = 1,
+        saturation = 1,
+      },
+			vertical_align = "Middle",
+			horizontal_align = "Center",
+			width = "Cover",
+			height = "Cover",
+			opacity = 1,
+		},
+		{
+			source = {
+        Color = "#000d1a",
 			},
 			repeat_x = "NoRepeat",
 			repeat_y = "NoRepeat",
 			vertical_align = "Middle",
 			horizontal_align = "Center",
-			width = "Cover",
-			height = "Cover",
-			opacity = 0.9,
+			width = "100%",
+			height = "100%",
+			opacity = 0.85,
 		},
 	},
 	initial_cols = 175,
