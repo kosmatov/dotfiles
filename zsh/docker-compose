@@ -52,7 +52,7 @@ function rspec() {
   cmd_args="$@"
   cmd_args="-e APP_ENV=test -e RACK_ENV=test$(log_env)$(prof_env)$(vcr_env) $(dc_console_container) bundle exec rspec "${cmd_args#$project_dir/}
   (cd $(dc_workdir) && docker exec -ti -w /app/$project_dir $(echo $cmd_args))
-  [ -n "$vcr_env" ] && sudo chown -R $USER $(dc_workdir)/$project_dir/spec/cassettes
+  [ -n "$(vcr_env)" ] && sudo chown -R $USER $(dc_workdir)/$project_dir/spec/cassettes
 }
 
 function psql() {
