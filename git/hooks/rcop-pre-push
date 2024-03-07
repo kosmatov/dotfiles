@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+. ~/.zshrc
+
+if [ -z "$(git symbolic-ref HEAD | grep develop)" ]; then
+  output=$(rcop -a)
+  echo $output | GREP_COLORS='mt=32:sl=32' grep 'no offenses detected' || (echo $output && exit 1)
+fi

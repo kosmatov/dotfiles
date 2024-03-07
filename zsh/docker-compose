@@ -80,7 +80,7 @@ function bundle() {
 
 function rcop() {
   base_branch=$(git rev-parse --verify --symbolic -q develop || echo -n master)
-  rcop_files=$(git diff origin/$base_branch..HEAD --name-only --diff-filter=dr | grep -E "*\.rb")
+  rcop_files=$(git diff origin/$base_branch..HEAD --name-only --diff-filter=dr | grep -E ".+\.rb")
   workdir=$(dc_workdir)
   echo "#!/bin/bash\necho \"$rcop_files\" | xargs bundle exec rubocop $@" > $workdir/.rcop-script
   chmod a+x $workdir/.rcop-script
