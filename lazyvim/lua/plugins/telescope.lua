@@ -10,6 +10,11 @@ return {
         preview_cutoff = 1000,
         prompt_position = "top",
       },
+      mappings = {
+        i = {
+          ["C-d"] = require("telescope.actions").delete_buffer,
+        },
+      },
     },
   },
 }
