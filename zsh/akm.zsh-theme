@@ -16,16 +16,10 @@ ZSH_THEME_GIT_TIME_SHORT_COMMIT_MEDIUM="%{$fg[yellow]%}"
 ZSH_THEME_GIT_TIME_SINCE_COMMIT_LONG="%{$fg[red]%}"
 ZSH_THEME_GIT_TIME_SINCE_COMMIT_NEUTRAL="%{$fg[cyan]%}"
 
-# Git sometimes goes into a detached head state. git_prompt_info doesn't
-# return anything in this case. So wrap it in another function and check
-# for an empty string.
 function check_git_prompt_info() {
     if git rev-parse --git-dir > /dev/null 2>&1; then
-        if [[ -z $(git_prompt_info) ]]; then
-            echo "(%{$fg[magenta]%}detached-head%{$reset_color%})"
-        else
-            echo "($(git_prompt_info)"
-        fi
+        GIT_BRANCH=$(git branch --show-current) || detached-head
+        echo "(%{$fg[magenta]%}${GIT_BRANCH}%{$reset_color%})"
     fi
 }
 
