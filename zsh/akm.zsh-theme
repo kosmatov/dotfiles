@@ -1,4 +1,4 @@
-PROMPT='%{$fg[blue]%}%n%{$reset_color%} on %{$fg[red]%}%M%{$reset_color%} in %{$fg[blue]%}%~%b%{$reset_color%}$(check_git_prompt_info)
+PROMPT='%{$fg[blue]%}%n%{$reset_color%} on %{$fg[magenta]%}%M%{$reset_color%} in %{$fg[blue]%}%~%b%{$reset_color%}$(git_status_prompt)
 $ '
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[green]%}"
@@ -23,3 +23,10 @@ function check_git_prompt_info() {
     fi
 }
 
+function git_branch_color() {
+  if [ -n "$(git status --porcelain)" ]; then
+    echo "red"
+  else
+    echo "green"
+  fi
+}
