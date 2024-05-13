@@ -16,7 +16,7 @@ ZSH_THEME_GIT_TIME_SHORT_COMMIT_MEDIUM="%{$fg[yellow]%}"
 ZSH_THEME_GIT_TIME_SINCE_COMMIT_LONG="%{$fg[red]%}"
 ZSH_THEME_GIT_TIME_SINCE_COMMIT_NEUTRAL="%{$fg[cyan]%}"
 
-function check_git_prompt_info() {
+function git_status_prompt() {
     if git rev-parse --git-dir > /dev/null 2>&1; then
         GIT_BRANCH=$(git branch --show-current)
         [ -z "${GIT_BRANCH}" ] && GIT_BRANCH=$(git rev-parse --short HEAD)
