@@ -1,10 +1,5 @@
 alias dcrun="docker-compose run"
 alias rubocop="dexec_console rubocop $@"
-alias iex="dexec_console iex $@"
-alias elixirc="dexec_console elixirc $@"
-alias elixir="dexec_console elixir $@"
-alias mix="dexec_console mix $@"
-alias pio="dexec_console pio $@"
 
 function dc_console_container() {
   container=$(grep_dc_console_container)
