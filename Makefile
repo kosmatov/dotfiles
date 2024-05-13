@@ -23,6 +23,9 @@ gitconfig: ~/.gitignore
 ~/.config/nvim:
 	ln -s $(DOTFILES)/lazyvim ~/.config/nvim
 
+docker-compose:
+	grep "docker-compose" ~/.zshrc || echo 'source $(DOTFILES)/zsh/docker-compose' >> ~/.zshrc
+
 ~/.wezterm.lua: sleepwatcher-wezterm
 ifneq ($(DARWIN),)
 	sed s:__dotfiles__:$(DOTFILES): wezterm.lua > ~/.wezterm.lua
