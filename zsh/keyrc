@@ -5,7 +5,7 @@ export EDITOR=nvr\ -o
 
 [ -z "$(where nvr)" ] && pip3 install neovim-remote
 
-[ -d ~/box ] && alias box="make -C ~/box enter"
+alias box="cd ~/Development; ssh-add -l | grep ssh/id_rsa || ssh-add; colima start"
 alias vim="nvim"
 alias vf="git grep --open-files-in-pager=$EDITOR"
 

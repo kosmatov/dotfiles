@@ -6,5 +6,5 @@ case $1 in
   ;;
   *)
     echo "Usage:"
-    echo "  $0 docker-compose <working_dir>"
+    echo "  $0 docker-compose $(pwd)"
 esac

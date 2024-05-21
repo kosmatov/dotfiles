@@ -1,3 +1,4 @@
 *.orig
 .rcop-script
 .bundle-script
+.ruby-lsp/

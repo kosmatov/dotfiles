@@ -24,7 +24,7 @@
 
 [alias]
     co = checkout
-    st = status
+    st = status -s
     unstage = reset HEAD --
     up = pull --rebase
     upm = pull --rebase origin master

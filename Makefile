@@ -11,8 +11,8 @@ install: zshrc gitconfig ~/.config/nvim ~/.wezterm.lua
 
 zshrc: ~/.oh-my-zsh ~/.dotfiles
 	grep "\.dotfiles" ~/.zshrc || echo ". $(HOME)/.dotfiles" > ~/.zshrc
-	grep "$(DOTFILES)/zsh/rc" ~/.zshrc || echo "source $$DOTFILES/zsh/rc" >> ~/.zshrc
-	[ $(USER) = key ] && grep "$(DOTFILES)/zsh/keyrc" ~/.zshrc || echo "source $$DOTFILES/zsh/keyrc" >> ~/.zshrc
+	grep "$(DOTFILES)/zsh/rc" ~/.zshrc || echo "source \$$DOTFILES/zsh/rc" >> ~/.zshrc
+	[ $(USER) = key ] && grep "zsh/keyrc" ~/.zshrc || echo "source \$$DOTFILES/zsh/keyrc" >> ~/.zshrc
 
 gitconfig: ~/.gitignore
 	grep include ~/.gitconfig || echo "[include]\n\tpath = $(DOTFILES)/git/config" >> ~/.gitconfig
@@ -24,7 +24,7 @@ gitconfig: ~/.gitignore
 	ln -s $(DOTFILES)/lazyvim ~/.config/nvim
 
 docker-compose:
-	grep "docker-compose" ~/.zshrc || echo 'source $$DOTFILES/zsh/docker-compose' >> ~/.zshrc
+	grep "docker-compose" ~/.zshrc || echo 'source \$$DOTFILES/zsh/docker-compose' >> ~/.zshrc
 
 ~/.wezterm.lua: sleepwatcher-wezterm
 ifneq ($(DARWIN),)
