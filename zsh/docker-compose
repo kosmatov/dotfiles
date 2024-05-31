@@ -76,7 +76,7 @@ function bundle() {
 function rcop() {
   for branch in develop master main; do
     [ -z "$base_branch" ] && base_branch=$(git rev-parse --verify --symbolic -q $branch)
-  end
+  done
   rcop_files=$(git diff origin/$base_branch..HEAD --name-only --diff-filter=dr | grep -E ".+\.rb")
   workdir=$(dc_workdir)
   echo "#!/bin/bash\necho \"$rcop_files\" | xargs bundle exec rubocop $@" > $workdir/.rcop-script
