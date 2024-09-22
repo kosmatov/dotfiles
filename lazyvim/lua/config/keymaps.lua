@@ -3,7 +3,7 @@
 -- Add any additional keymaps here
 
 local map = vim.keymap.set
-map("n", "<leader>p", '"0p', { desc = "Paste last yank" })
+map({ "n", "v" }, "<leader>P", '"0p', { desc = "Paste last yank" })
 map("n", "<leader>y", require("pbcopy").send, { desc = "Send yank text to pbcopy" })
 map("n", "<C-t>", require("term").term, { desc = "Open terminal in a new vsplit" })
 

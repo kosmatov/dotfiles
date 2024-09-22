@@ -17,9 +17,9 @@ return {
     },
     server = {
       on_attach = on_attach,
-      cmd = { "rust-lsp", "docker-compose", require 'util'.git_root_dir() },
+      cmd = { "rust-lsp", "docker-compose", require 'util'.dc_root_dir() },
       root_dir = function(_)
-        require 'util'.git_root_dir()
+        require 'util'.dc_root_dir()
       end,
       settings = {
         ["rust-analyzer"] = {

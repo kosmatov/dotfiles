@@ -16,3 +16,4 @@ opt.cursorline = false
 env.GIT_EDITOR = "nvr -cc split --remote-wait"
 
 g.ea = true
+g.root_spec = { "cwd", ".git", "lsp" }
