@@ -4,7 +4,6 @@
 
 local opt, env, g = vim.opt, vim.env, vim.g
 
-opt.clipboard = "unnamed"
 opt.number = false
 opt.relativenumber = false
 opt.mouse = {}
@@ -17,3 +16,4 @@ env.GIT_EDITOR = "nvr -cc split --remote-wait"
 
 g.ea = true
 g.root_spec = { "cwd", ".git", "lsp" }
+g.loaded_clipboard_provider = 1

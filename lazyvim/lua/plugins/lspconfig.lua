@@ -1,15 +1,12 @@
 return {
   "neovim/nvim-lspconfig",
-  dependencies = {
-    { "folke/neodev.nvim", opts = { setup_jsonls = false } },
-  },
   opts = {
-   servers = {
+    servers = {
       solargraph = {
-        cmd = { "ruby-lsp", "docker-compose", require'util'.git_root_dir() },
+        cmd = { "ruby-lsp", "docker-compose", require 'util'.git_root_dir() },
       },
       lua_ls = {
-        cmd = { "lua-lsp", "docker-compose", require'util'.git_root_dir() },
+        cmd = { "lua-lsp", "docker-compose", require 'util'.git_root_dir() },
         settings = {
           Lua = {
             completion = {
