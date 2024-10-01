@@ -1,4 +1,10 @@
 local wezterm = require("wezterm")
+local handle = io.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
+local result = handle:read("*a")
+handle:close()
+local opacity = result:match("Dark") and 0.93 or 0.85
+
+local wezterm = require("wezterm")
 return {
 	font = wezterm.font("Monaco"),
 	font_size = 13,
@@ -39,7 +45,7 @@ return {
 			horizontal_align = "Center",
 			width = "100%",
 			height = "100%",
-			opacity = 0.85,
+			opacity = opacity,
 		},
 	},
 	initial_cols = 175,
