@@ -7,7 +7,7 @@ function start_dc_console() {
   [ -z "$(grep-dc-console)" ] && dcrun -d console tail -F none
 }
 
-function dexec_dc_console() {
+function dexec_console() {
   start_dc_console
   (cd $(dc_workdir) && docker exec -ti -w /app/$(dc_project_dir)$DEXEC_ARGV $(grep-dc-console) $@ && exit 1)
 }

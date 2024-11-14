@@ -6,6 +6,7 @@ local map = vim.keymap.set
 map({ "n", "v" }, "<leader>p", '"0p', { desc = "Paste last yank" })
 map("n", "<leader>y", require("pbcopy").send, { desc = "Send yank text to pbcopy" })
 map("n", "<C-t>", require("term").term, { desc = "Open terminal in a new vsplit" })
+map("t", "<esc><esc>", "<C-\\><C-N>")
 
 -- Move to window using the <ctrl> hjkl keys
 map("i", "<C-h>", "<esc><C-w>h", { desc = "Go to left window", remap = true })
