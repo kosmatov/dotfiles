@@ -1,3 +1,5 @@
+.PHONY: dotfiles
+
 DOTFILES := $(shell pwd)
 DARWIN := $(shell uname | grep Darwin)
 
@@ -21,6 +23,7 @@ gitconfig: ~/.gitignore
 	cp $(DOTFILES)/git/ignore ~/.gitignore
 
 ~/.config/nvim:
+	mkdir -p ~/.config
 	ln -s $(DOTFILES)/lazyvim ~/.config/nvim
 
 docker-compose:
@@ -35,3 +38,6 @@ sleepwatcher-wezterm:
 ifneq ($(DARWIN),)
 	git clone https://github.com/kosmatov/sleepwatcher-wezterm
 endif
+
+clean:
+	rm ~/.dotfiles ~/.zshrc ~/.gitconfig ~/.gitignore ~/.config/nvim ~/.wezterm.lua
