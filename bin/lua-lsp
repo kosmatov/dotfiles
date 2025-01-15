@@ -4,6 +4,9 @@ case $1 in
   docker-compose)
     docker-compose run --rm -v $2:$2:z -w $2 console
   ;;
+  version)
+    echo "1.0.0"
+  ;;
   *)
     echo "Usage:"
     echo "  $0 docker <workdir>"
