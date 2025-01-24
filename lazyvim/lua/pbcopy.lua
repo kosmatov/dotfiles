@@ -1,5 +1,5 @@
 local function pbcopy()
-  vim.fn.system("ssh host-machine pbcopy", vim.fn.getreg("0"))
+  vim.fn.system("pbcopy", vim.fn.getreg("0"))
 end
 
 return {

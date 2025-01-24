@@ -1,9 +1,9 @@
 local function git_root_dir()
-  return vim.fn.getcwd() .. "/" .. vim.fn.finddir(".git/..", vim.fn.expand("%:p") .. ";")
+  return vim.fn.finddir(".git/..", vim.fn.expand("%:p") .. ";")
 end
 
 local function dc_root_dir()
-  return vim.fn.getcwd() .. "/" .. vim.fn.finddir("docker/..", vim.fn.expand("%:p") .. ";")
+  return vim.fn.finddir("docker/..", vim.fn.expand("%:p") .. ";")
 end
 
 return {

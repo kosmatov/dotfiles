@@ -3,7 +3,7 @@ return {
   opts = {
     servers = {
       solargraph = {
-        cmd = { "ruby-lsp", "docker-compose", require 'util'.git_root_dir() },
+        cmd = { "docker", "compose", "run", "--rm", "solargraph" },
       },
       lua_ls = {
         cmd = { "lua-lsp", "docker-compose", require 'util'.git_root_dir() },

@@ -1,15 +1,15 @@
 alias dcrun="docker-compose run"
-alias rubocop="dexec_console rubocop $@"
-alias kill-dc-console="docker-compose ps -a | grep console | grep Up | cut -d\  -f1 | xargs docker kill > /dev/null 2>&1; docker-compose rm -f"
-alias grep-dc-console="docker-compose ps -a | grep console | grep Up | head -1 | cut -d' ' -f1"
+alias rubocop="dexec_cli rubocop $@"
+alias kill-dc-cli="docker-compose ps -a | grep cli-run- | grep Up | cut -d\  -f1 | xargs docker kill > /dev/null 2>&1; docker-compose rm -f"
+alias grep-dc-cli="docker-compose ps -a | grep cli-run- | grep Up | head -1 | cut -d' ' -f1"
 
-function start_dc_console() {
-  [ -z "$(grep-dc-console)" ] && dcrun -d console tail -F none
+function start_dc_cli() {
+  [ -z "$(grep-dc-cli)" ] && dcrun -d cli tail -F none
 }
 
-function dexec_console() {
-  start_dc_console
-  (cd $(dc_workdir) && docker exec -ti -w /app/$(dc_project_dir)$DEXEC_ARGV $(grep-dc-console) $@ && exit 1)
+function dexec_cli() {
+  start_dc_cli
+  (cd $(dc_workdir) && docker exec -ti -w $PWD/$(dc_project_dir) $(echo $DEXEC_ARGV) $(grep-dc-cli) $@ && exit 1)
 }
 
 function dc_workdir() {
@@ -36,16 +36,16 @@ function rspec() {
   dcwd=$(dc_project_dir)
   pd=dcwd
   typeset -A pdfiles
-  start_dc_console
+  start_dc_cli
 
   for f in $@; do
-    [ -z "$dcwd" ] && pd=$(echo $f | cut -d/ -f1 | grep -v spec)
+    [ -z "$dcwd" ] && pd=$(echo $f | cut -d/ -f1 | grep -v spec) || pd="."
     pdfiles[$pd]="$pdfiles[$pd] ${f#$pd/}"
   done
 
   for pd in ${(@k)pdfiles}; do
-    dc_args="-e APP_ENV=test -e RACK_ENV=test$(log_env)$(prof_env)$(vcr_env) $(grep-dc-console) bundle exec rspec$pdfiles[$pd]"
-    (cd $(dc_workdir) && docker exec -ti -w /app/$pd $(echo $dc_args))
+    dc_args="$(log_env)$(prof_env)$(vcr_env) $(grep-dc-cli) bundle exec rspec$pdfiles[$pd]"
+    (cd $(dc_workdir) && set -x && docker exec -ti -w $PWD/$pd $(echo $dc_args))
     [ -n "$(vcr_env)" ] && sudo chown -R $USER $(dc_workdir)/$pd/spec/cassettes
   done
 }
@@ -66,10 +66,9 @@ function bundle() {
     }" > $(dc_workdir)/.bundle-script
 
     chmod a+x $(dc_workdir)/.bundle-script
-    (cd $(dc_workdir) && dexec_console ./.bundle-script)
+    (cd $(dc_workdir) && dexec_cli ./.bundle-script)
   else
-    DEXEC_ARGV=" -e APP_ENV=test -e RACK_ENV=test" dexec_console bundle $@
-    sudo chown -R $USER $(dc_workdir)/$(dc_project_dir)
+    DEXEC_ARGV="-e APP_ENV=test -e RACK_ENV=test -e BUNDLE_GITHUB__COM=x-access-token:$(gh auth token)" dexec_cli bundle $@
   fi
 }
 
@@ -82,5 +81,5 @@ function rcop() {
   echo "#!/bin/bash\necho \"$rcop_files\" | xargs bundle exec rubocop $@" > $workdir/.rcop-script
   chmod a+x $workdir/.rcop-script
   project_dir=$(dc_project_dir)
-  (cd $(dc_workdir) && docker exec -i -w /app/$project_dir $(grep-dc-console) ./.rcop-script && exit 1)
+  (cd $(dc_workdir) && docker exec -i -w $project_dir $(grep-dc-cli) ./.rcop-script && exit 1)
 }

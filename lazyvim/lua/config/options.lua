@@ -16,4 +16,4 @@ env.GIT_EDITOR = "nvr -cc split --remote-wait"
 
 g.ea = true
 g.root_spec = { "cwd", ".git", "lsp" }
-g.loaded_clipboard_provider = 1
+-- g.loaded_clipboard_provider = 1
