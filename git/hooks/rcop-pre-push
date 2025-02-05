@@ -1,8 +1,10 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
+
+DEV_BRANCH=${DEV_BRANCH:develop}
 
 . ~/.zshrc
 
-if [ -z "$(git symbolic-ref HEAD | grep develop)" ]; then
+if [ -z "$(git symbolic-ref HEAD | grep $DEV_BRANCH)" ]; then
   output=$(rcop -a)
   echo $output | GREP_COLORS='mt=32:sl=32' grep 'no offenses detected' || (echo $output && exit 1)
 fi

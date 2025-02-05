@@ -1,7 +1,12 @@
 alias dcrun="docker-compose run"
 alias rubocop="dexec_cli rubocop $@"
 alias kill-dc-cli="docker-compose ps -a | grep cli-run- | grep Up | cut -d\  -f1 | xargs docker kill > /dev/null 2>&1; docker-compose rm -f"
-alias grep-dc-cli="docker-compose ps -a | grep cli-run- | grep Up | head -1 | cut -d' ' -f1"
+alias grep-dc-cli="docker-compose ps -a | grep cli-run- | grep Up | head -1 | cut -d' ' -f1 || echo cli"
+
+function grep_solargraph() {
+  container=$(docker-compose ps -a | grep solargraph-run- | grep Up | head -1 | cut -d' ' -f1)
+  [ -n "$container" ] && echo $container || echo solargraph
+}
 
 function start_dc_cli() {
   [ -z "$(grep-dc-cli)" ] && dcrun -d cli tail -F none
@@ -76,10 +81,10 @@ function rcop() {
   for branch in develop master main; do
     [ -z "$base_branch" ] && base_branch=$(git rev-parse --verify --symbolic -q $branch)
   done
-  rcop_files=$(git diff origin/$base_branch..HEAD --name-only --diff-filter=dr | grep -E ".+\.rb")
+  rcop_files=$(git diff origin/$base_branch..HEAD --name-only --diff-filter=dr | grep -E ".+\.(rb|jbuilder)")
   workdir=$(dc_workdir)
   echo "#!/bin/bash\necho \"$rcop_files\" | xargs bundle exec rubocop $@" > $workdir/.rcop-script
   chmod a+x $workdir/.rcop-script
   project_dir=$(dc_project_dir)
-  (cd $(dc_workdir) && docker exec -i -w $project_dir $(grep-dc-cli) ./.rcop-script && exit 1)
+  (cd $(dc_workdir) && docker exec -i -w $PWD$project_dir $(grep_solargraph) ./.rcop-script && exit 1)
 }

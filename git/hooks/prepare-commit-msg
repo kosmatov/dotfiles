@@ -1,14 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 
-PREFIX='COM-'
-MINNUM=1000
+PREFIX="[A-Z]{3,}-[0-9]{3,}"
 
-if [ -z "$(cat $1 | grep $PREFIX)" ]; then
-  git symbolic-ref HEAD | grep -o "[0-9]*" | {
-    while read ticket_num; do
-      if [ $ticket_num -gt $MINNUM ]; then
-        echo "$PREFIX$ticket_num $(cat $1)" > $1
-      fi
-    done
-  }
+if [ -z "$(grep -E $PREFIX) $1" ]; then
+  echo "$(git symbolic-ref HEAD | grep -oE $PREFIX) $(cat $1)" > $1
 fi
