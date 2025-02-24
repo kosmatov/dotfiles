@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-PREFIX="[A-Z]{3,}-[0-9]{3,}"
+PREFIX="^[A-Z]{2,}-[0-9]{3,}"
 
 if [ -z "$(grep -E $PREFIX) $1" ]; then
   echo "$(git symbolic-ref HEAD | grep -oE $PREFIX) $(cat $1)" > $1

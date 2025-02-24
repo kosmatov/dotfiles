@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-DEV_BRANCH=${DEV_BRANCH:develop}
+DEV_BRANCH=${DEV_BRANCH:-develop}
 
 . ~/.zshrc
 

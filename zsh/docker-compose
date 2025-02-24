@@ -1,47 +1,50 @@
-alias dcrun="docker-compose run"
-alias rubocop="dexec_cli rubocop $@"
-alias kill-dc-cli="docker-compose ps -a | grep cli-run- | grep Up | cut -d\  -f1 | xargs docker kill > /dev/null 2>&1; docker-compose rm -f"
-alias grep-dc-cli="docker-compose ps -a | grep cli-run- | grep Up | head -1 | cut -d' ' -f1 || echo cli"
+alias dc="docker compose"
+alias rubocop="dexec-shell rubocop $@"
+alias kill-dc-shell="docker-compose ps -a | grep shell-run- | grep Up | cut -d\  -f1 | xargs docker kill > /dev/null 2>&1; dc rm -f"
+alias grep-dc-shell="docker-compose ps -a | grep shell-run- | grep Up | head -1 | cut -d' ' -f1 || echo shell"
 
-function grep_solargraph() {
-  container=$(docker-compose ps -a | grep solargraph-run- | grep Up | head -1 | cut -d' ' -f1)
+function grep-solargraph() {
+  container=$(dc ps -a | grep solargraph-run- | grep Up | head -1 | cut -d' ' -f1)
   [ -n "$container" ] && echo $container || echo solargraph
 }
 
-function start_dc_cli() {
-  [ -z "$(grep-dc-cli)" ] && dcrun -d cli tail -F none
+function start-dc-shell() {
+  [ -f "$(dc-workdir)/docker-compose.yml" ] || echo "$(realpath $(dc-workdir))/docker-compose.yml not exists" && return 1
+  [ -n "$(grep-dc-shell)" ] && echo "Shell container already running" && return 1
+  [ -z "$(grep-dc-shell)" ] && dc run -d shell tail -F none
 }
 
-function dexec_cli() {
-  start_dc_cli
-  (cd $(dc_workdir) && docker exec -ti -w $PWD/$(dc_project_dir) $(echo $DEXEC_ARGV) $(grep-dc-cli) $@ && exit 1)
+function dexec-shell() {
+  start-dc-shell || return 1
+  [ -z "$(grep-dc-shell)" ] && echo "Failed to start shell container" && return 1
+  (cd $(dc-workdir) && docker exec -ti -w $PWD/$(dc-subpath) $(echo $DEXEC_ARGV) $(grep-dc-shell) $@ && exit 1)
 }
 
-function dc_workdir() {
-  [ -n "$(dc_project_dir)" ] && echo '..' || echo '.'
+function dc-workdir() {
+  [ -n "$(dc-subpath)" ] && echo '..' || echo '.'
 }
 
-function dc_project_dir() {
+function dc-subpath() {
   [ -f 'docker-compose.yml' ] && echo '' || echo $(basename $(pwd))
 }
 
-function vcr_env() {
+function vcr-env() {
   [ -n "$VCR$VCR_UP" ] && echo " -e VCR_UP=1"
 }
 
-function prof_env() {
+function prof-env() {
   [ -n "$PROF" ] && echo " -e TEST_STACK_PROF=$PROF -e TEST_STACK_PROF_FORMAT=json"
 }
 
-function log_env() {
+function log-env() {
   [ -n "$LOG" ] && echo " -e LOG=$LOG"
 }
 
 function rspec() {
-  dcwd=$(dc_project_dir)
+  dcwd=$(dc-subpath)
   pd=dcwd
   typeset -A pdfiles
-  start_dc_cli
+  start-dc-shell || return 1
 
   for f in $@; do
     [ -z "$dcwd" ] && pd=$(echo $f | cut -d/ -f1 | grep -v spec) || pd="."
@@ -49,14 +52,14 @@ function rspec() {
   done
 
   for pd in ${(@k)pdfiles}; do
-    dc_args="$(log_env)$(prof_env)$(vcr_env) $(grep-dc-cli) bundle exec rspec$pdfiles[$pd]"
-    (cd $(dc_workdir) && set -x && docker exec -ti -w $PWD/$pd $(echo $dc_args))
-    [ -n "$(vcr_env)" ] && sudo chown -R $USER $(dc_workdir)/$pd/spec/cassettes
+    dc_args="$(log_env)$(prof_env)$(vcr_env) $(grep-dc-shell) bundle exec rspec$pdfiles[$pd]"
+    (cd $(dc-workdir) && set -x && docker exec -ti -w $PWD/$pd $(echo $dc_args))
+    [ -n "$(vcr_env)" ] && sudo chown -R $USER $(dc-workdir)/$pd/spec/cassettes
   done
 }
 
 function psql() {
-  docker exec -ti $(docker-compose ps | grep $(basename $(pwd))_db | head -1 | cut -d' ' -f1) psql $@
+  docker exec -ti $(dc ps | grep $(basename $(pwd))_db | head -1 | cut -d' ' -f1) psql $@
 }
 
 function bundle() {
@@ -68,12 +71,12 @@ function bundle() {
         dir=\$(dirname \$str)
         cd \$dir && echo -\\>\$(pwd) && bundle && [ \$dir = '.' ] || cd .. && echo \$(pwd)
       done
-    }" > $(dc_workdir)/.bundle-script
+    }" > $(dc-workdir)/.bundle-script
 
-    chmod a+x $(dc_workdir)/.bundle-script
-    (cd $(dc_workdir) && dexec_cli ./.bundle-script)
+    chmod a+x $(dc-workdir)/.bundle-script
+    (cd $(dc-workdir) && dexec-shell ./.bundle-script)
   else
-    DEXEC_ARGV="-e APP_ENV=test -e RACK_ENV=test -e BUNDLE_GITHUB__COM=x-access-token:$(gh auth token)" dexec_cli bundle $@
+    DEXEC_ARGV="-e APP_ENV=test -e RACK_ENV=test -e BUNDLE_GITHUB__COM=x-access-token:$(gh auth token)" dexec-shell bundle $@
   fi
 }
 
@@ -82,9 +85,9 @@ function rcop() {
     [ -z "$base_branch" ] && base_branch=$(git rev-parse --verify --symbolic -q $branch)
   done
   rcop_files=$(git diff origin/$base_branch..HEAD --name-only --diff-filter=dr | grep -E ".+\.(rb|jbuilder)")
-  workdir=$(dc_workdir)
+  workdir=$(dc-workdir)
   echo "#!/bin/bash\necho \"$rcop_files\" | xargs bundle exec rubocop $@" > $workdir/.rcop-script
   chmod a+x $workdir/.rcop-script
-  project_dir=$(dc_project_dir)
-  (cd $(dc_workdir) && docker exec -i -w $PWD$project_dir $(grep_solargraph) ./.rcop-script && exit 1)
+  project_dir=$(dc-subpath)
+  (cd $(dc-workdir) && docker exec -i -w $PWD$project_dir $(grep-solargraph) ./.rcop-script && exit 1)
 }
