@@ -7,15 +7,15 @@ local opacity = result:match("Dark") and 0.93 or 0.85
 local wezterm = require("wezterm")
 return {
 	font = wezterm.font("Monaco"),
-	font_size = 13,
+	font_size = 12,
 	freetype_load_flags = "NO_HINTING",
 	color_scheme = "Adventure",
 	enable_tab_bar = false,
 	window_padding = {
-		left = 8,
-		right = 8,
+		left = 0,
+		right = 0,
 		top = 5,
-		bottom = 5,
+		bottom = 0,
 	},
 	background = {
 		{

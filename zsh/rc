@@ -5,7 +5,8 @@ ZSH_THEME=akm
 PATH=$PATH:$DOTFILES/bin
 [ -d /opt/homebrew ] && PATH=$PATH:/opt/homebrew/bin
 
-plugins=(${plugins[@]} history-substring-search per-directory-history timer)
+setopt HIST_IGNORE_ALL_DUPS
+export HISTORY_SUBSTRING_SEARCH_FUZZY=1
 
 export SHELL=/bin/zsh
 export EDITOR=vim
@@ -13,5 +14,7 @@ export LC_ALL=en_US.UTF-8
 export TIMER_FORMAT='[%d] '
 export TIMER_PRECISION=2
 export TIMER_THRESHOLD=1
+
+plugins=(${plugins[@]} history-substring-search per-directory-history timer)
 
 source ~/.oh-my-zsh/oh-my-zsh.sh

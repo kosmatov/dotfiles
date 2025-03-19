@@ -6,6 +6,10 @@ return {
     transparent_background = true,
     no_italic = true,
     show_end_of_buffer = false,
-    integrations = { blink_cmp = true },
+    custom_highlights = function(colors)
+      return {
+        TermCursorNC = { fg = colors.none, bg = colors.none }
+      }
+    end,
   },
 }

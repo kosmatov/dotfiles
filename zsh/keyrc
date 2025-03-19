@@ -5,7 +5,10 @@ export EDITOR=nvr\ -o
 
 [ -z "$(where nvr)" ] && pip3 install neovim-remote
 
-alias box="make -C ~/Development/box enter"
+if [ -d ~/Development/box ]; then
+  alias box="make -C ~/Development/box enter"
+fi
+
 alias vim="nvim"
 alias vf="git grep --open-files-in-pager=$EDITOR"
 

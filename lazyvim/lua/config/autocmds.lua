@@ -23,16 +23,8 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "VimResized", "BufLeave" }, {
-  pattern = { "*" },
+vim.api.nvim_create_autocmd({ "TermOpen" }, {
   callback = function()
-    vim.cmd("wincmd =")
-  end,
-})
-
-vim.api.nvim_create_autocmd("TermOpen", {
-  callback = function()
-    vim.b.miniindentscope_disable = true
     vim.cmd.startinsert()
   end,
 })

@@ -1,4 +1,4 @@
-FROM alpine:latest 
+FROM alpine:latest
 
 RUN apk add bash git ninja gcc g++ linux-headers && \
   git clone https://github.com/LuaLS/lua-language-server /app && \

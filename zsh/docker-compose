@@ -1,7 +1,15 @@
+export DC_SHELL_CONTAINER=${DC_SHELL_CONTAINER:-shell}
+
 alias dc="docker compose"
 alias rubocop="dexec-shell rubocop $@"
-alias kill-dc-shell="docker-compose ps -a | grep shell-run- | grep Up | cut -d\  -f1 | xargs docker kill > /dev/null 2>&1; dc rm -f"
-alias grep-dc-shell="docker-compose ps -a | grep shell-run- | grep Up | head -1 | cut -d' ' -f1 || echo shell"
+
+function kill-dc-shell {
+  dc ps -a | grep $DC_SHELL_CONTAINER | grep Up | cut -d\  -f1 | xargs docker rm -f
+}
+
+function grep-dc-shell {
+  dc ps -a | grep $DC_SHELL_CONTAINER | grep Up | head -1 | cut -d' ' -f1
+}
 
 function grep-solargraph() {
   container=$(dc ps -a | grep solargraph-run- | grep Up | head -1 | cut -d' ' -f1)
@@ -9,9 +17,12 @@ function grep-solargraph() {
 }
 
 function start-dc-shell() {
-  [ -f "$(dc-workdir)/docker-compose.yml" ] || echo "$(realpath $(dc-workdir))/docker-compose.yml not exists" && return 1
-  [ -n "$(grep-dc-shell)" ] && echo "Shell container already running" && return 1
-  [ -z "$(grep-dc-shell)" ] && dc run -d shell tail -F none
+  if [ -f "$(dc-workdir)/docker-compose.yml" ]; then
+    [ -n "$(grep-dc-shell)" ] || dc up -d $DC_SHELL_CONTAINER
+  else
+    echo "$(realpath $(dc-workdir))/docker-compose.yml doesn't exist" >&2
+    return 1
+  fi
 }
 
 function dexec-shell() {
@@ -51,10 +62,12 @@ function rspec() {
     pdfiles[$pd]="$pdfiles[$pd] ${f#$pd/}"
   done
 
+  [ -z "$@" ] && pdfiles[.]=""
+
   for pd in ${(@k)pdfiles}; do
-    dc_args="$(log_env)$(prof_env)$(vcr_env) $(grep-dc-shell) bundle exec rspec$pdfiles[$pd]"
-    (cd $(dc-workdir) && set -x && docker exec -ti -w $PWD/$pd $(echo $dc_args))
-    [ -n "$(vcr_env)" ] && sudo chown -R $USER $(dc-workdir)/$pd/spec/cassettes
+    dc_args="$(log-env)$(prof-env)$(vcr-env) $(grep-dc-shell) bundle exec rspec$pdfiles[$pd]"
+    (cd $(dc-workdir) && docker exec -ti -w $PWD/$pd $(echo $dc_args))
+    [ -n "$(vcr-env)" ] && sudo chown -R $USER $(dc-workdir)/$pd/spec/cassettes
   done
 }
 
@@ -76,7 +89,7 @@ function bundle() {
     chmod a+x $(dc-workdir)/.bundle-script
     (cd $(dc-workdir) && dexec-shell ./.bundle-script)
   else
-    DEXEC_ARGV="-e APP_ENV=test -e RACK_ENV=test -e BUNDLE_GITHUB__COM=x-access-token:$(gh auth token)" dexec-shell bundle $@
+    DEXEC_ARGV="-e APP_ENV=test -e RACK_ENV=test" dexec-shell bundle $@
   fi
 }
 

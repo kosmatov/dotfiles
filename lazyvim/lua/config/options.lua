@@ -11,6 +11,8 @@ opt.title = true
 opt.titlestring = "%F"
 opt.formatoptions = "qrn1"
 opt.cursorline = false
+opt.statuscolumn = ""
+opt.signcolumn = "no"
 
 env.GIT_EDITOR = "nvr -cc split --remote-wait"
 

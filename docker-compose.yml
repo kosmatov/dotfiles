@@ -1,5 +1,8 @@
 services:
-  console: &console
+  lua-ls:
     build:
       context: ./docker
+    volumes:
+      - .:$PWD
+    working_dir: $PWD
     command: /app/bin/lua-language-server
