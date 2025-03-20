@@ -1,7 +1,7 @@
 export DC_SHELL_CONTAINER=${DC_SHELL_CONTAINER:-shell}
 
 alias dc="docker compose"
-alias dcps="docker compose ps -a --format \"table {{.ID}}\\t{{.Name}}\\t{{.Status}}\\t{{.Ports}}\""
+alias dcps="docker compose ps -a --format \"table {{.ID}}\\t{{.Name}}\\t{{.Status}}\""
 alias rubocop="dexec-shell rubocop $@"
 
 function kill-dc-shell {
