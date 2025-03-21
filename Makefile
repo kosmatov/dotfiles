@@ -3,7 +3,7 @@
 DOTFILES := $(shell pwd)
 DARWIN := $(shell uname | grep Darwin)
 
-install: zshrc gitconfig ~/.config/nvim ~/.wezterm.lua
+install: zshrc gitconfig ~/.config/nvim ~/.wezterm.lua ~/.docker/config.json
 
 ~/.oh-my-zsh:
 	curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
@@ -25,6 +25,10 @@ gitconfig: ~/.gitignore
 ~/.config/nvim:
 	mkdir -p ~/.config
 	ln -s $(DOTFILES)/lazyvim ~/.config/nvim
+
+~/.docker/config.json:
+	mkdir -p ~/.docker
+	cp $(DOTFILES)/docker/config.json ~/.docker/config.json
 
 docker-compose:
 	grep "docker-compose" ~/.zshrc || echo 'source \$$DOTFILES/zsh/docker-compose' >> ~/.zshrc
