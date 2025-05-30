@@ -52,11 +52,16 @@ function log-env() {
   [ -n "$LOG" ] && echo " -e LOG=$LOG"
 }
 
+function dc-test-env() {
+  echo "-e ${DC_TEST_ENV:-APP_ENV=test}$(vcr-env)$(prof-env)$(log-env)"
+}
+
 function rspec() {
   dcwd=$(dc-subpath)
   pd=dcwd
   typeset -A pdfiles
   start-dc-shell || return 1
+  bundle check | grep satisfied > /dev/null 2>&1 || bundle install
 
   for f in $@; do
     [ -z "$dcwd" ] && pd=$(echo $f | cut -d/ -f1 | grep -v spec) || pd="."
@@ -66,7 +71,7 @@ function rspec() {
   [ -z "$@" ] && pdfiles[.]=""
 
   for pd in ${(@k)pdfiles}; do
-    dc_args="$(log-env)$(prof-env)$(vcr-env) $(grep-dc-shell) bundle exec rspec$pdfiles[$pd]"
+    dc_args="$(dc-test-env) $(grep-dc-shell) bundle exec rspec$pdfiles[$pd]"
     (cd $(dc-workdir) && docker exec -ti -w $PWD/$pd $(echo $dc_args))
     [ -n "$(vcr-env)" ] && sudo chown -R $USER $(dc-workdir)/$pd/spec/cassettes
   done
@@ -90,7 +95,7 @@ function bundle() {
     chmod a+x $(dc-workdir)/.bundle-script
     (cd $(dc-workdir) && dexec-shell ./.bundle-script)
   else
-    DEXEC_ARGV="-e APP_ENV=test -e RACK_ENV=test" dexec-shell bundle $@
+    DEXEC_ARGV=$(dc-test-env) dexec-shell bundle $@
   fi
 }
 
@@ -103,5 +108,5 @@ function rcop() {
   echo "#!/bin/bash\necho \"$rcop_files\" | xargs bundle exec rubocop $@" > $workdir/.rcop-script
   chmod a+x $workdir/.rcop-script
   project_dir=$(dc-subpath)
-  (cd $(dc-workdir) && docker exec -i -w $PWD$project_dir $(grep-solargraph) ./.rcop-script && exit 1)
+  (cd $(dc-workdir) && docker exec -i -w $PWD$project_dir $(grep-dc-shell) ./.rcop-script && exit 1)
 }
