@@ -6,13 +6,13 @@ local opt, env, g = vim.opt, vim.env, vim.g
 
 opt.number = false
 opt.relativenumber = false
-opt.mouse = {}
 opt.title = true
 opt.titlestring = "%F"
 opt.formatoptions = "qrn1"
 opt.cursorline = false
 opt.statuscolumn = ""
 opt.signcolumn = "no"
+opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus"
 
 env.GIT_EDITOR = "nvr -cc split --remote-wait"
 

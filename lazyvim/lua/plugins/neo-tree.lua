@@ -11,7 +11,7 @@ return {
     {
       "<leader>fe",
       function()
-        require("neo-tree.command").execute({ dir = vim.loop.cwd(), reveal = true, position = "float" })
+        require("neo-tree.command").execute({ dir = vim.loop.cwd(), reveal = true, toggle = vim.bo.buftype == "terminal" })
       end,
       desc = "Explorer NeoTree (cwd)",
     },
@@ -20,6 +20,23 @@ return {
   },
   opts = {
     enable_git_status = false,
+    sources = {
+      "filesystem",
+      "buffers"
+    },
+    event_handlers = {
+      -- {
+      --    event = "file_opened",
+      --    handler = function(file_path)
+      --      require("neo-tree.sources.filesystem").reset_search()
+      --      --auto close
+      --      require("neo-tree.command").execute({ action = "close" })
+      --    end
+      -- },
+    },
+    filtered_items = {
+      hide_gitignored = false,
+    },
     filesystem = {
       window = {
         mappings = {
