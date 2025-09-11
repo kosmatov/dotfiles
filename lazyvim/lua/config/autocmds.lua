@@ -28,3 +28,9 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
     vim.cmd.startinsert()
   end,
 })
+
+-- vim.api.nvim_create_autocmd({ "BufRead", "TermOpen" }, {
+--   callback = function()
+--     vim.cmd("set laststatus=0")
+--   end
+-- })

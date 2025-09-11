@@ -25,14 +25,14 @@ return {
       "buffers"
     },
     event_handlers = {
-      -- {
-      --    event = "file_opened",
-      --    handler = function(file_path)
-      --      require("neo-tree.sources.filesystem").reset_search()
-      --      --auto close
-      --      require("neo-tree.command").execute({ action = "close" })
-      --    end
-      -- },
+      {
+        event = "file_opened",
+        handler = function(file_path)
+          -- require("neo-tree.sources.filesystem").reset_search()
+          --auto close
+          require("neo-tree.command").execute({ action = "close" })
+        end
+      },
     },
     filtered_items = {
       hide_gitignored = false,

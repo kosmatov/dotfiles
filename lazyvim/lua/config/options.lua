@@ -13,6 +13,7 @@ opt.cursorline = false
 opt.statuscolumn = ""
 opt.signcolumn = "no"
 opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus"
+opt.mouse = {}
 
 env.GIT_EDITOR = "nvr -cc split --remote-wait"
 

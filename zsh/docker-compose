@@ -1,5 +1,3 @@
-export DC_SHELL_CONTAINER=${DC_SHELL_CONTAINER:-shell}
-
 alias dc="docker compose"
 alias dcps="docker compose ps -a --format \"table {{.ID}}\\t{{.Name}}\\t{{.Status}}\""
 alias rubocop="dexec-shell rubocop $@"
@@ -18,10 +16,10 @@ function grep-solargraph() {
 }
 
 function start-dc-shell() {
-  if [ -f "$(dc-workdir)/docker-compose.yml" ]; then
+  if [ -f "$DC_CONFIG_DIR/docker-compose.yml" ]; then
     [ -n "$(grep-dc-shell)" ] || dc up -d $DC_SHELL_CONTAINER
   else
-    echo "$(realpath $(dc-workdir))/docker-compose.yml doesn't exist" >&2
+    echo "$(realpath $DC_CONFIG_DIR/docker-compose.yml) doesn't exist" >&2
     return 1
   fi
 }
@@ -29,15 +27,18 @@ function start-dc-shell() {
 function dexec-shell() {
   start-dc-shell || return 1
   [ -z "$(grep-dc-shell)" ] && echo "Failed to start shell container" && return 1
-  (cd $(dc-workdir) && docker exec -ti -w $PWD/$(dc-subpath) $(echo $DEXEC_ARGV) $(grep-dc-shell) $@ && exit 1)
+  docker exec -ti $DEXEC_ARGV $DC_SHELL_ARGS $(grep-dc-shell) $@
 }
 
 function dc-workdir() {
-  [ -n "$(dc-subpath)" ] && echo '..' || echo '.'
+  workdir=$(dc config --format json | jq ".services.$DC_SHELL_CONTAINER.working_dir")
+  [ "$workdir" = "null" ] && workdir=$(dc config --format json | jq -r ".services.$DC_SHELL_CONTAINER.volumes.[] | select(.source == \"$(pwd)\").target")
+  [ -z "$workdir" ] && workdir=$(pwd)
+  [ -n "$(dc-subpath)" ] && echo ${workdir:Q}/$(dc-subpath) || echo ${workdir:Q}
 }
 
 function dc-subpath() {
-  [ -f 'docker-compose.yml' ] && echo '' || echo $(basename $(pwd))
+  [ -f 'docker-compose.yml' ] && echo '' || echo "/$(basename $(pwd))"
 }
 
 function vcr-env() {
@@ -62,18 +63,21 @@ function rspec() {
   typeset -A pdfiles
   start-dc-shell || return 1
   bundle check | grep satisfied > /dev/null 2>&1 || bundle install
+  dc_workdir=$(dc-workdir)
 
   for f in $@; do
     [ -z "$dcwd" ] && pd=$(echo $f | cut -d/ -f1 | grep -v spec) || pd="."
-    pdfiles[$pd]="$pdfiles[$pd] ${f#$pd/}"
+    pdfiles[/$pd]="$pdfiles[$pd] ${f#$pd/}"
   done
 
-  [ -z "$@" ] && pdfiles[.]=""
+  [ -z "$@" ] && pdfiles[/.]=""
 
   for pd in ${(@k)pdfiles}; do
-    dc_args="$(dc-test-env) $(grep-dc-shell) bundle exec rspec$pdfiles[$pd]"
-    (cd $(dc-workdir) && docker exec -ti -w $PWD/$pd $(echo $dc_args))
-    [ -n "$(vcr-env)" ] && sudo chown -R $USER $(dc-workdir)/$pd/spec/cassettes
+    dc_args="$DC_SHELL_ARGS $(dc-test-env) $(grep-dc-shell) bundle exec rspec$pdfiles[$pd]"
+    cmd="docker exec -ti -w $dc_workdir$pd $dc_args"
+    echo "$cmd"
+    eval "$cmd"
+    [ -n "$(vcr-env)" ] && sudo chown -R $USER $DC_CONFIG_DIR/$pd/spec/cassettes
   done
 }
 
@@ -104,9 +108,9 @@ function rcop() {
     [ -z "$base_branch" ] && base_branch=$(git rev-parse --verify --symbolic -q $branch)
   done
   rcop_files=$(git diff origin/$base_branch..HEAD --name-only --diff-filter=dr | grep -E ".+\.(rb|jbuilder)")
-  workdir=$(dc-workdir)
-  echo "#!/bin/bash\necho \"$rcop_files\" | xargs bundle exec rubocop $@" > $workdir/.rcop-script
-  chmod a+x $workdir/.rcop-script
-  project_dir=$(dc-subpath)
-  (cd $(dc-workdir) && docker exec -i -w $PWD$project_dir $(grep-dc-shell) ./.rcop-script && exit 1)
+  echo "#!/bin/bash\necho \"$rcop_files\" | xargs bundle exec rubocop $@" > $DC_CONFIG_DIR/.rcop-script
+  chmod a+x $DC_CONFIG_DIR/.rcop-script
+  cmd="docker exec -i -w $(dc-workdir)$(dc-subpath) $DC_SHELL_ARGS $(grep-dc-shell) ./.rcop-script"
+  echo "$cmd"
+  eval "$cmd"
 }
