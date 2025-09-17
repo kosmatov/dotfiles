@@ -11,19 +11,10 @@ install: zshrc gitconfig ~/.config/nvim ~/.wezterm.lua ~/.docker/config.json
 ~/.dotfiles:
 	echo "export DOTFILES=$(DOTFILES)" > ~/.dotfiles
 
-zshrc: ~/.oh-my-zsh ~/.dotfiles direnv
+zshrc: ~/.oh-my-zsh ~/.dotfiles
 	grep "\.dotfiles" ~/.zshrc || echo ". $(HOME)/.dotfiles" > ~/.zshrc
 	grep "$(DOTFILES)/zsh/rc" ~/.zshrc || echo "source \$$DOTFILES/zsh/rc" >> ~/.zshrc
 	[ $(USER) = key ] && grep "zsh/keyrc" ~/.zshrc || echo "source \$$DOTFILES/zsh/keyrc" >> ~/.zshrc
-
-direnv:
-ifneq ($(DARWIN),)
-	which direnv > /dev/null 2>&1 || brew install direnv
-else
-	which direnv > /dev/null 2>&1 || sudo apt-get install -y direnv
-endif
-	mkdir -p ~/.config/direnv
-	[ -f ~/.config/direnv/direnv.toml ] || cp $(DOTFILES)/zsh/direnv.toml ~/.config/direnv/
 
 gitconfig: ~/.gitignore
 	grep include ~/.gitconfig || echo "[include]\n\tpath = $(DOTFILES)/git/config" >> ~/.gitconfig

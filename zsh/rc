@@ -15,6 +15,6 @@ export TIMER_FORMAT='[%d] '
 export TIMER_PRECISION=2
 export TIMER_THRESHOLD=1
 
-plugins=(${plugins[@]} history-substring-search per-directory-history timer direnv)
+plugins=(${plugins[@]} history-substring-search per-directory-history timer)
 
 source ~/.oh-my-zsh/oh-my-zsh.sh
