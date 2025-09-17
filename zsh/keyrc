@@ -10,5 +10,6 @@ if [ -d ~/Development/box ]; then
 fi
 
 alias vf="git grep --open-files-in-pager=$EDITOR"
+alias fd=fdfind
 
 [ -n "$(where docker-compose)" ] && source $DOTFILES/zsh/docker-compose
