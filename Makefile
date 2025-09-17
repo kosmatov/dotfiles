@@ -1,4 +1,4 @@
-.PHONY: dotfiles
+.PHONY: ~/.dotfiles
 
 DOTFILES := $(shell pwd)
 DARWIN := $(shell uname | grep Darwin)
@@ -45,3 +45,6 @@ endif
 
 clean:
 	rm ~/.dotfiles ~/.zshrc ~/.gitconfig ~/.gitignore ~/.config/nvim ~/.wezterm.lua
+
+cargo:
+	curl https://sh.rustup.rs -sSf | sh
