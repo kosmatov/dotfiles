@@ -48,3 +48,6 @@ clean:
 
 cargo:
 	curl https://sh.rustup.rs -sSf | sh
+
+git-hooks:
+	cp $(DOTFILES)/git/hooks/* .git/hooks/

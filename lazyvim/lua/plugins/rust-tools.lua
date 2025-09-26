@@ -17,7 +17,7 @@ return {
     },
     server = {
       on_attach = on_attach,
-      cmd = { "rust-lsp", "docker-compose", require 'util'.dc_root_dir() },
+      cmd = { "docker", "compose", "run", "--rm", "rust-analyzer" },
       root_dir = function(_)
         require 'util'.dc_root_dir()
       end,
