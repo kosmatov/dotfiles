@@ -10,4 +10,5 @@ if [ -d ~/Development/box ]; then
 fi
 
 alias vf="git grep --open-files-in-pager=$EDITOR"
-alias fd=fdfind
+alias fd="fdfind"
+alias dc="docker compose"
