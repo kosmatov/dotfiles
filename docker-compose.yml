@@ -6,3 +6,11 @@ services:
       - .:$PWD
     working_dir: $PWD
     command: /app/bin/lua-language-server
+  node-tools:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.node
+    volumes:
+      - $HOME:$HOME
+    working_dir: $HOME
+    command: tail -f /dev/null

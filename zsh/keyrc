@@ -12,3 +12,6 @@ fi
 alias vf="git grep --open-files-in-pager=$EDITOR"
 alias fd="fdfind"
 alias dc="docker compose"
+alias node="make -C $DOTFILES node"
+alias copilot="make -C $DOTFILES copilot"
+alias codex="make -C $DOTFILES codex"

@@ -51,3 +51,22 @@ cargo:
 
 git-hooks:
 	cp $(DOTFILES)/git/hooks/* .git/hooks/
+
+build-node-tools:
+	@docker image ls | grep -q dotfiles-node-tools || docker compose -f $(DOTFILES)/docker-compose.yml build node-tools
+
+node-container: build-node-tools
+	$(eval export NODE_CONTAINER ?= $(shell docker container ls --filter "name=node-tools" --format "{{.Names}}"))
+	$(if $(NODE_CONTAINER),,$(eval export NODE_CONTAINER := $(shell docker compose -f $(DOTFILES)/docker-compose.yml up -d node-tools 2>&1 | cut -d\  -f3)))
+
+codex: node-container
+	docker exec -it $(NODE_CONTAINER) $(MAKECMDGOALS)
+
+copilot: node-container
+	docker exec -it $(NODE_CONTAINER) copilot
+
+node: node-container
+	docker exec -it $(NODE_CONTAINER) node
+
+%:
+	echo done
