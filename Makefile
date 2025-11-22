@@ -53,6 +53,9 @@ install-node:
 	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 	source ~/.zshrc
 
+install-tree-sitter:
+	cargo install --locked tree-sitter-cli
+
 git-hooks:
 	cp $(DOTFILES)/git/hooks/* .git/hooks/
 
