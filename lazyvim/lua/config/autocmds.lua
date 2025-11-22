@@ -34,3 +34,9 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 --     vim.cmd("set laststatus=0")
 --   end
 -- })
+
+vim.api.nvim_create_autocmd({ "BufEnter", "BufLeave", "FocusLost", "WinEnter", "BufRead", "TermOpen" }, {
+  callback = function()
+    require("util").restore_layout()
+  end,
+})

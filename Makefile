@@ -49,6 +49,10 @@ clean:
 cargo:
 	curl https://sh.rustup.rs -sSf | sh
 
+install-node:
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+	source ~/.zshrc
+
 git-hooks:
 	cp $(DOTFILES)/git/hooks/* .git/hooks/
 
@@ -57,7 +61,7 @@ build-node-tools:
 
 node-container: build-node-tools
 	$(eval export NODE_CONTAINER ?= $(shell docker container ls --filter "name=node-tools" --format "{{.Names}}"))
-	$(if $(NODE_CONTAINER),,$(eval export NODE_CONTAINER := $(shell docker compose -f $(DOTFILES)/docker-compose.yml up -d node-tools 2>&1 | cut -d\  -f3)))
+	$(if $(NODE_CONTAINER),,$(eval export NODE_CONTAINER := $(shell docker compose -f $(DOTFILES)/docker-compose.yml up -d node-tools 2>&1 | grep Started | cut -d\  -f3)))
 
 codex: node-container
 	docker exec -it $(NODE_CONTAINER) $(MAKECMDGOALS)

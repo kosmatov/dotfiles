@@ -6,12 +6,13 @@ local opt, env, g = vim.opt, vim.env, vim.g
 
 opt.number = false
 opt.relativenumber = false
+-- opt.laststatus = 0
 opt.title = true
 opt.titlestring = "%F"
 opt.formatoptions = "qrn1"
 opt.cursorline = false
 opt.statuscolumn = ""
-opt.signcolumn = "no"
+opt.signcolumn = "yes"
 opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus"
 opt.mouse = {}
 

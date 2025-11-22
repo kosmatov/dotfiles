@@ -22,51 +22,41 @@ return {
       } },
       lualine_b = {
         {
-          "buffers",
-          icons_enabled = false,
-          use_mode_colors = true,
-          symbols = { modified = "", alternate_file = "", directory = "" },
-          separator = { right = "", left = "" },
-        }
-      },
-      lualine_c = {},
-      lualine_x = {
-        -- stylua: ignore
-        {
-          function() return "  " .. require("dap").status() end,
-          cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
+          "location",
+          padding = { left = 1, right = 1 },
+          color = { bg = theme.inactive.b.bg, fg = theme.normal.b.fg },
+          separator = { right = "", left = "" },
         },
+        {
+          "progress",
+          padding = { left = 1, right = 1 },
+          color = { bg = theme.normal.c.bg, fg = theme.normal.b.fg },
+        },
+        --   {
+        --     "buffers",
+        --     icons_enabled = false,
+        --     use_mode_colors = true,
+        --     symbols = { modified = "", alternate_file = "", directory = "" },
+        --     separator = { right = "", left = "" },
+        --   },
       },
-      lualine_y = {
+      lualine_c = {
         {
           "filename",
           file_status = false,
           path = 1,
           shorting_target = 40,
           symbols = { modified = "", alternate_file = "", directory = "" },
-          color = { bg = theme.normal.c.bg, fg = theme.inactive.c.fg },
         },
         {
-          "progress",
-          padding = { left = 0, right = 1 },
-          color = { bg = theme.normal.c.bg, fg = theme.normal.b.fg },
-        },
-        {
-          "location",
-          padding = { left = 1, right = 1 },
-          color = { bg = theme.inactive.b.bg, fg = theme.normal.b.fg },
-          separator = { left = "", right = "" },
+          function() return "  " .. require("dap").status() end,
+          cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
         },
       },
-      lualine_z = {
-        {
-          function()
-            return os.date("%R")
-          end,
-          separator = { left = "", right = "" },
-        }
-      },
+      lualine_x = {},
+      lualine_y = {},
+      lualine_z = {},
     }
-    opts.incative_sections = {}
+    opts.inactive_sections = {}
   end
 }

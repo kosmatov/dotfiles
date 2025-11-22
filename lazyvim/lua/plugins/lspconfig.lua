@@ -1,6 +1,9 @@
 return {
   "neovim/nvim-lspconfig",
   opts = {
+    diagnostics = {
+      signs = false,
+    },
     servers = {
       solargraph = {
         cmd = { "docker", "compose", "run", "--rm", "solargraph" },

@@ -12,5 +12,8 @@ services:
       dockerfile: Dockerfile.node
     volumes:
       - $HOME:$HOME
+    ports:
+      - "1455:1455"
     working_dir: $HOME
+    stop_grace_period: 1s
     command: tail -f /dev/null

@@ -4,3 +4,5 @@ xkbswitch-macosx/
 wezterm.lua~
 *lock.json
 lazyvim.json
+node_modules/
+package.json

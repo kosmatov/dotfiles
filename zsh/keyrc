@@ -1,7 +1,8 @@
 [ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
 
 export LOGNAME=key
-export EDITOR=nvr\ -o
+export EDITOR=nvr
+export GPG_TTY=$(tty)
 
 [ -z "$(where nvr)" ] && pip3 install neovim-remote
 
@@ -12,6 +13,5 @@ fi
 alias vf="git grep --open-files-in-pager=$EDITOR"
 alias fd="fdfind"
 alias dc="docker compose"
-alias node="make -C $DOTFILES node"
-alias copilot="make -C $DOTFILES copilot"
-alias codex="make -C $DOTFILES codex"
+alias codex="$DOTFILES/node_modules/@openai/codex/bin/codex.js"
+alias copilot="$DOTFILES/node_modules/@github/copilot/index.js"

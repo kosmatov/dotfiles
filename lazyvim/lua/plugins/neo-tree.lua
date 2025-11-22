@@ -33,6 +33,14 @@ return {
           require("neo-tree.command").execute({ action = "close" })
         end
       },
+      {
+        event = "neo_tree_window_closed",
+        handler = function()
+          vim.schedule(function()
+            require("util").restore_layout()
+          end)
+        end,
+      },
     },
     filtered_items = {
       hide_gitignored = false,

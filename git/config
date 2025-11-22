@@ -27,8 +27,6 @@
     st = status -s
     unstage = reset HEAD --
     up = pull --rebase
-    upm = pull --rebase origin master
-    upd = pull --rebase origin develop
     put = push origin HEAD
     puf = push origin HEAD --no-verify
     lp = log -p
@@ -38,7 +36,7 @@
     set-upstream = !"git branch -u origin/$(git symbolic-ref --short HEAD)"
 
 [core]
-  editor = nvr -o
+  editor = nvr --remote-wait-silent
   excludesfile = ~/.gitignore
   pager = less -X
 

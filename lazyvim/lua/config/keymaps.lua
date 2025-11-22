@@ -5,8 +5,10 @@
 local map = vim.keymap.set
 map({ "n", "v" }, "<leader>p", '"0p', { desc = "Paste last yank" })
 map("n", "<leader>y", require("pbcopy").send, { desc = "Send yank text to pbcopy" })
+map("n", "<leader>z", ":enew | bd #<cr>", { desc = "Close current buffer but not window", remap = true })
 map("n", "<C-t>", require("term").term, { desc = "Open terminal in a new vsplit" })
-map("t", "<esc><esc>", "<C-\\><C-N>")
+map("t", "<esc><esc>", "<C-\\><C-n>")
+map("t", "<C-[><C-[>", "<C-\\><C-n>")
 
 -- Move to window using the <ctrl> hjkl keys
 map("i", "<C-h>", "<esc><C-w>h", { desc = "Go to left window", remap = true })
