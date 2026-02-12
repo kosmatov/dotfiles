@@ -13,5 +13,3 @@ fi
 alias vf="git grep --open-files-in-pager=$EDITOR"
 alias fd="fdfind"
 alias dc="docker compose"
-alias codex="$DOTFILES/node_modules/@openai/codex/bin/codex.js"
-alias copilot="$DOTFILES/node_modules/@github/copilot/index.js"
