@@ -8,7 +8,7 @@ opt.number = false
 opt.relativenumber = false
 -- opt.laststatus = 0
 opt.title = true
-opt.titlestring = "%F"
+opt.titlestring = "%{exists('*FugitiveHead') && FugitiveHead() != '' ? FugitiveHead() . ' ' : ''}%F"
 opt.formatoptions = "qrn1"
 opt.cursorline = false
 opt.statuscolumn = ""
