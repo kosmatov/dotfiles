@@ -13,3 +13,7 @@ fi
 alias vf="git grep --open-files-in-pager=$EDITOR"
 alias fd="fdfind"
 alias dc="docker compose"
+
+function osc52copy() {
+  base64 | tr -d '\n' | sed $'s/^/\033]52;c;/; s/$/\a/'
+}

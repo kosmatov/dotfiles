@@ -13,7 +13,10 @@ opt.formatoptions = "qrn1"
 opt.cursorline = false
 opt.statuscolumn = ""
 opt.signcolumn = "yes"
-opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus"
+if env.SSH_TTY then
+  g.clipboard = "osc52"
+end
+opt.clipboard = "unnamedplus"
 opt.mouse = {}
 
 env.GIT_EDITOR = "nvr -cc split --remote-wait"
