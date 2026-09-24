@@ -3,12 +3,18 @@
 -- Add any additional options here
 
 local opt, env, g = vim.opt, vim.env, vim.g
+local default_branches = { master = true, develop = true, main = true }
+
+local function title()
+  return vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+end
 
 opt.number = false
 opt.relativenumber = false
 -- opt.laststatus = 0
 opt.title = true
-opt.titlestring = "%{exists('*FugitiveHead') && FugitiveHead() != '' ? FugitiveHead() . ' ' : ''}%F"
+_G.dotfiles_title = title
+opt.titlestring = "%{v:lua.dotfiles_title()}"
 opt.formatoptions = "qrn1"
 opt.cursorline = false
 opt.statuscolumn = ""

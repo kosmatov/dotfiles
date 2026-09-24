@@ -35,7 +35,7 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 --   end
 -- })
 
-vim.api.nvim_create_autocmd({ "BufEnter", "BufLeave", "FocusLost", "WinEnter", "BufRead", "TermOpen", "VimResized" }, {
+vim.api.nvim_create_autocmd({ "BufEnter", "BufLeave", "FocusLost", "WinEnter", "BufRead", "TermOpen" }, {
   callback = function()
     require("util").restore_layout()
   end,
