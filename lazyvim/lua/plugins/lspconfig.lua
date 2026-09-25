@@ -6,7 +6,7 @@ return {
     },
     servers = {
       solargraph = {
-        cmd = { "docker", "compose", "run", "--rm", "solargraph" },
+        cmd = { "make", "solargraph" },
       },
       lua_ls = {
         cmd = { "docker", "compose", "run", "--rm", "lua-ls" },
