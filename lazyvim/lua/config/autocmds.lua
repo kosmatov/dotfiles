@@ -1,6 +1,19 @@
 -- Autocmds are automatically loaded on the VeryLazy event -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
 
+if vim.env.SSH_TTY then
+  local copy = require("osc52").copy("+")
+
+  vim.api.nvim_create_autocmd("TextYankPost", {
+    callback = function()
+      local event = vim.v.event
+      if event.operator == "y" and event.regname ~= "+" and event.regname ~= "*" then
+        copy(event.regcontents, event.regtype)
+      end
+    end,
+  })
+end
+
 vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost" }, {
   pattern = { "*" },
   callback = function()

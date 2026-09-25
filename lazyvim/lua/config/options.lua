@@ -20,9 +20,23 @@ opt.cursorline = false
 opt.statuscolumn = ""
 opt.signcolumn = "yes"
 if env.SSH_TTY then
-  g.clipboard = "osc52"
+  local osc52 = require("osc52")
+
+  g.clipboard = {
+    name = "OSC 52 (async)",
+    copy = {
+      ["+"] = osc52.copy("+"),
+      ["*"] = osc52.copy("*"),
+    },
+    paste = {
+      ["+"] = osc52.paste("+"),
+      ["*"] = osc52.paste("*"),
+    },
+  }
+  opt.clipboard = ""
+else
+  opt.clipboard = "unnamedplus"
 end
-opt.clipboard = "unnamedplus"
 opt.mouse = {}
 
 env.GIT_EDITOR = "nvr -cc split --remote-wait"
